@@ -1,16 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    [Header("MockupData")]
+    public HeroData mockHeroStatus;
+    [Header("Game")]
+    public InputSystem inputSystem;
+    public CharacterSystem characterSystem;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Awake()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        inputSystem.Initialize(this);
+        characterSystem.Initialize(this);
+        inputSystem.SetReceiver(characterSystem.hero);
+    }
 }
