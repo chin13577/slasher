@@ -297,6 +297,7 @@ MonoBehaviour:
     name: Hero
     attack: 10
     defence: 5
+    speed: 50
   inputSystem: {fileID: 1488120932}
   characterSystem: {fileID: 1488120935}
 --- !u!4 &1488120934

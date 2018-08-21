@@ -7,20 +7,23 @@ public class Hero : Character, ITouchReceivable
 {
     public void OnTouchBegin(Vector2 position)
     {
+        if (IsReachToTargetPosition(position, transform.position.ToVector2(), 0.1f)) return;
+        RotateTo(position);
         MoveTo(position);
     }
+
     public void OnTouchDrag(Vector2 position)
     {
+        if (IsReachToTargetPosition(position, transform.position.ToVector2(), 0.1f)) return;
+        RotateTo(position);
         MoveTo(position);
     }
     public void OnEnd(Vector2 position)
     {
     }
 
-    private void MoveTo(Vector2 position)
+    private bool IsReachToTargetPosition(Vector2 targetPosition, Vector2 currentPosition, float minDistance)
     {
-        float step = status.speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, position, step);
+        return (targetPosition - currentPosition).SqrMagnitude() <= minDistance * minDistance;
     }
-
 }
