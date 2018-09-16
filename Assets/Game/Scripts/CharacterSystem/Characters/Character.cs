@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public abstract class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
 {
     public HeroData status;
 
+    public virtual void TakeDamage(float damage) { }
+    public virtual void TakeDamage(GameObject attacker) { }
+    public virtual void OnFixedUpdate() { }
+    public virtual void OnUpdate() { }
 
     protected void RotateTo(Vector2 position)
     {

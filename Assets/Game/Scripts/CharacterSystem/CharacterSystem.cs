@@ -14,10 +14,10 @@ public class CharacterSystem : MonoBehaviour
     public void Initialize(GameManager manager)
     {
         this.manager = manager;
-        hero = GenerateHero(manager.mockHeroStatus);
+        hero = CreateHero(manager.mockHeroStatus);
     }
 
-    private Hero GenerateHero(HeroData data)
+    private Hero CreateHero(HeroData data)
     {
         GameObject hero = Instantiate(Resources.Load("Characters/" + data.name) as GameObject);
         Hero heroComponent = hero.GetComponent<Hero>();
