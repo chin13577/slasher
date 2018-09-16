@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Game")]
     public InputSystem inputSystem;
     public CharacterSystem characterSystem;
+    public GameLoop gameLoop;
 
     private void Awake()
     {
@@ -21,5 +22,7 @@ public class GameManager : MonoBehaviour
         inputSystem.Initialize(this);
         characterSystem.Initialize(this);
         inputSystem.SetReceiver(characterSystem.hero);
+
+        gameLoop.Initialize();
     }
 }
