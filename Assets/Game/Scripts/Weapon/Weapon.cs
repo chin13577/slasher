@@ -8,4 +8,5 @@ public abstract class Weapon : MonoBehaviour
     public WeaponData data;
 
     public virtual void OnHitObject(IDamageable target) { }
+    
 }
