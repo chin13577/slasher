@@ -14,6 +14,8 @@ public class CharacterSystem : MonoBehaviour
     public void Initialize(GameManager manager)
     {
         this.manager = manager;
+        //TODO: Read heroData from another scene.
+
         hero = CreateHero(manager.mockHeroStatus);
     }
 

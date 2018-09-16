@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 1488120933}
   - component: {fileID: 1488120932}
   - component: {fileID: 1488120935}
+  - component: {fileID: 1488120936}
   m_Layer: 0
   m_Name: _Manager
   m_TagString: Untagged
@@ -300,6 +301,7 @@ MonoBehaviour:
     speed: 50
   inputSystem: {fileID: 1488120932}
   characterSystem: {fileID: 1488120935}
+  gameLoop: {fileID: 1488120936}
 --- !u!4 &1488120934
 Transform:
   m_ObjectHideFlags: 0
@@ -325,6 +327,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: 0}
+--- !u!114 &1488120936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1488120931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7ca15280632d140826f274e55354a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2040190559
 GameObject:
   m_ObjectHideFlags: 0

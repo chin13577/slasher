@@ -6,6 +6,7 @@ using System;
 public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
 {
     public HeroData status;
+    public Transform directionTransform;
 
     public virtual void TakeDamage(float damage) { }
     public virtual void TakeDamage(GameObject attacker) { }
@@ -15,8 +16,8 @@ public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
     protected void RotateTo(Vector2 position)
     {
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward,
-                         new Vector3(position.x, position.y, transform.position.z) - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, status.speed * Time.deltaTime);
+                         new Vector3(position.x, position.y, transform.position.z) - directionTransform.transform.position);
+        directionTransform.transform.rotation = Quaternion.Slerp(directionTransform.transform.rotation, targetRotation, status.speed * Time.deltaTime);
     }
 
     protected void MoveTo(Vector2 position)

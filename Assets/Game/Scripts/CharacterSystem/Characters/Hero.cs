@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Hero : Character, ITouchReceivable
 {
+    public Weapon weapon;
+
     public void OnTouchBegin(Vector2 position)
     {
         if (IsReachToTargetPosition(position, transform.position.ToVector2(), 0.1f)) return;
