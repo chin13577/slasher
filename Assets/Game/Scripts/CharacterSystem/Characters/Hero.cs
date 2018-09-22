@@ -55,7 +55,7 @@ public class Hero : Character, ITouchReceivable
         {
             IDamageable obj = overlapCollisions[i].GetComponent<IDamageable>();
             if (obj != null)
-                weapon.OnHitObject(obj);
+                weapon.OnHitObject(attackPoint.position, obj);
         }
     }
 
@@ -74,7 +74,7 @@ public class Hero : Character, ITouchReceivable
             if (raycastHits[i].transform == this.transform)
                 continue;
             var obj = raycastHits[i].transform.GetComponent<IDamageable>();
-            weapon.OnHitObject(obj);
+            weapon.OnHitObject(raycastHits[i].point, obj);
         }
     }
 

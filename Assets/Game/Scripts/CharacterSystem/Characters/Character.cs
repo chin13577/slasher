@@ -18,18 +18,13 @@ public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
     public virtual void TakeDamage(GameObject attacker) { }
     public virtual void OnFixedUpdate() { }
     public virtual void OnUpdate() { }
-     
+
     protected void RotateSlerpTo(Vector2 position)
     {
-        Quaternion targetRotation = RotateTo(position);
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, new Vector3(position.x, position.y, transform.position.z) - directionTransform.transform.position);
         directionTransform.transform.rotation = Quaternion.Slerp(directionTransform.transform.rotation, targetRotation, status.speed * Time.deltaTime);
     }
 
-    private Quaternion RotateTo(Vector2 position)
-    {
-        return Quaternion.LookRotation(Vector3.forward, new Vector3(position.x, position.y, transform.position.z) - directionTransform.transform.position);
-    }
-     
     protected void MoveTo(Vector2 position)
     {
         float step = status.speed * Time.deltaTime;
@@ -39,7 +34,7 @@ public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
     public Transform GetTransform()
     {
         return this.transform;
-    }
+    } 
 }
 
 [Serializable]

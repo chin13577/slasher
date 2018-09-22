@@ -7,6 +7,6 @@ public abstract class Weapon : MonoBehaviour
     public Character owner;
     public WeaponData data;
 
-    public virtual void OnHitObject(IDamageable target) { }
-    
+    public virtual void OnHitObject(Vector2 hitPos, IDamageable target) { }
+
 }
