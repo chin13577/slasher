@@ -356,6 +356,7 @@ MonoBehaviour:
     speed: 0
   directionTransform: {fileID: 4938076322678892}
   attackPoint: {fileID: 4239328998563362}
+  positionTransform: {fileID: 4938076322678892}
   collider: {fileID: 58163718691831806}
   weapon: {fileID: 114561143040715664}
 --- !u!114 &114561143040715664

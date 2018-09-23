@@ -113,6 +113,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &334033377 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114845503581811970, guid: 2d428bb78d8e54e4289afba33d7a2148,
+    type: 2}
+  m_PrefabInternal: {fileID: 1263862038}
+  m_Script: {fileID: 11500000, guid: 0f455d2816584d449bde2e493880d145, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +297,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114845503581811970, guid: 2d428bb78d8e54e4289afba33d7a2148,
+        type: 2}
+      propertyPath: positionTransform
+      value: 
+      objectReference: {fileID: 1610275229}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d428bb78d8e54e4289afba33d7a2148, type: 2}
   m_IsPrefabAsset: 0
@@ -341,6 +352,7 @@ MonoBehaviour:
     attack: 10
     defence: 5
     speed: 50
+  enemy: {fileID: 334033377}
   inputSystem: {fileID: 1488120932}
   characterSystem: {fileID: 1488120935}
   gameLoop: {fileID: 1488120936}
@@ -368,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc52705530762747a354a0831fd0e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hero: {fileID: 0}
+  hero: {fileID: 114161354542575760, guid: 3d02ea9f2f588794bbeea7f32b4d9eef, type: 2}
 --- !u!114 &1488120936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,6 +392,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7ca15280632d140826f274e55354a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1610275229 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4326754946486994, guid: 2d428bb78d8e54e4289afba33d7a2148,
+    type: 2}
+  m_PrefabInternal: {fileID: 1263862038}
 --- !u!1 &2040190559
 GameObject:
   m_ObjectHideFlags: 0

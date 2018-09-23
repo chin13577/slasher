@@ -9,9 +9,11 @@ public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
     public HeroData status;
     [SerializeField] protected Transform directionTransform;
     [SerializeField] protected Transform attackPoint;
+    [SerializeField] private Transform positionTransform;
 
-    public Vector3 direction { get { return attackPoint.position - directionTransform.position; } }
-    public bool CanAttack { get { return true; } }
+    public Vector3 direction { get { return (attackPoint.position - position).normalized; } }
+    public Vector3 position { get { return positionTransform.position; } }
+    public bool CanAttacked { get { return true; } }
     public new Collider2D collider;
 
     public virtual void TakeDamage(float damage) { }
@@ -21,7 +23,7 @@ public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
 
     protected void RotateSlerpTo(Vector2 position)
     {
-        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, new Vector3(position.x, position.y, transform.position.z) - directionTransform.transform.position);
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, new Vector3(position.x, position.y, transform.position.z) - this.position);
         directionTransform.transform.rotation = Quaternion.Slerp(directionTransform.transform.rotation, targetRotation, status.speed * Time.deltaTime);
     }
 
@@ -34,7 +36,7 @@ public abstract class Character : MonoBehaviour, IDamageable, IUpdateable
     public Transform GetTransform()
     {
         return this.transform;
-    } 
+    }
 }
 
 [Serializable]

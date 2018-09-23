@@ -74,7 +74,8 @@ public class Hero : Character, ITouchReceivable
             if (raycastHits[i].transform == this.transform)
                 continue;
             var obj = raycastHits[i].transform.GetComponent<IDamageable>();
-            weapon.OnHitObject(raycastHits[i].point, obj);
+            if (obj != null)
+                weapon.OnHitObject(raycastHits[i].point, obj);
         }
     }
 
