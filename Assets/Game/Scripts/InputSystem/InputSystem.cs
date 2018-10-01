@@ -18,13 +18,11 @@ public class InputSystem : MonoBehaviour
         }
     }
 
-    private GameManager manager;
     private ITouchReceivable receiver;
     private GameInput input;
 
-    public void Initialize(GameManager manager)
+    public void Initialize()
     {
-        this.manager = manager;
 #if UNITY_EDITOR
         input = new DebugInput();
 #elif UNITY_ANDROID
@@ -42,7 +40,7 @@ public class InputSystem : MonoBehaviour
     {
         for (int i = 0; i < input.GetInputCount(); i++)
         {
-            TouchPhase phase = input.GetPhase(i); 
+            TouchPhase phase = input.GetPhase(i);
             if (phase == TouchPhase.Began)
             {
                 if (EventSystem.current.IsPointerOverGameObject(input.PointerId(i))) { return; }
