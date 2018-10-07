@@ -8,7 +8,7 @@ using System.Collections;
 /// </summary>
 public class Isometric
 {
-
+    public const float Tan45 = 1;
     public static Vector3 NORTH = new Vector3(1, .5f, 0);
     public static Vector3 WEST = new Vector3(-1, .5f, 0);
     public static Vector3 SOUTH = new Vector3(-1, -.5f, 0);
@@ -62,11 +62,19 @@ public class Isometric
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    internal static Vector3 isoTo2D(int x, int y)
+    public static Vector3 isoTo2D(int x, int y)
     {
         var tempPt = new Vector2(0, 0);
         tempPt.x = (float)(2 * y + x) / 2;
         tempPt.y = (float)(2 * y - x) / 2;
         return tempPt;
+    }
+
+    public static void UpdateLayerInZAxis(Transform transform, Vector3 position)
+    {
+        float depth = position.z - 0.1f * (position.x + position.y);
+        transform.position = new Vector3(transform.position.x,
+                                        transform.position.y,
+                                         -depth);
     }
 }
