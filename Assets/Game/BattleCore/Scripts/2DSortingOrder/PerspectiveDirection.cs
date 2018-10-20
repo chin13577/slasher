@@ -14,7 +14,7 @@ public class PerspectiveDirection : MonoBehaviour
     void OnDrawGizmos()
     {
         var calculatedDirection = direction.ConvertToPerspective2D(perspectiveDegree);
-        result = new Vector3(calculatedDirection.x, calculatedDirection.y).normalized;
+        result = new Vector3(calculatedDirection.x, calculatedDirection.y);
         Debug.DrawLine(
             transform.position,
              transform.position + result,

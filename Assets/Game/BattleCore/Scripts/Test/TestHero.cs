@@ -14,7 +14,6 @@ public class TestHero : MonoBehaviour, IReceiveMovement
     }
     // Update is called once per frame
     void IReceiveMovement.OnReceiveMovement(Vector2 direction)
-    {
-        print(direction);
+    { 
     }
 }

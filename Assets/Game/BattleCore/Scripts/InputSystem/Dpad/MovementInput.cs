@@ -11,10 +11,11 @@ namespace Shinnii.Controller
     {
         public DpadController controller;
         public MovementSetting setting;
+        [SerializeField] private RectTransform root;
         [SerializeField] private RectTransform baseImage;
         [SerializeField] private RectTransform padImage;
         [SerializeField] private CanvasGroup canvasGroup;
-        public Vector2 RawInput { get { return padImage.anchoredPosition - baseImage.anchoredPosition; } }
+        public Vector2 RawInput { get { return padImage.localPosition - baseImage.localPosition; } }
         public Vector2 Direction
         {
             get
@@ -28,6 +29,7 @@ namespace Shinnii.Controller
         public float Power { get { return RawInput.magnitude / setting.controllerRadius; } }
 
         private Vector2 pressPosition;
+        private Vector2 currentDragPosition;
         private Vector2 origin;
         private bool isControlling;
         void Awake()
@@ -37,10 +39,6 @@ namespace Shinnii.Controller
             padImage.anchoredPosition = origin;
         }
 
-
-        /// <summary>
-        /// Update is called every frame, if the MonoBehaviour is enabled.
-        /// </summary>
         void Update()
         {
             if (isControlling)
@@ -52,7 +50,8 @@ namespace Shinnii.Controller
         {
             canvasGroup.alpha = 1;
             isControlling = true;
-            pressPosition = eventData.position;
+            pressPosition = eventData.pressPosition;
+
             SetBaseImagePosition(pressPosition);
             SetPadImagePosition(pressPosition);
         }
