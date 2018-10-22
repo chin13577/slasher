@@ -42,16 +42,24 @@ namespace Shinnii.Controller
         void Update()
         {
             if (isControlling)
-                controller.OnReceiveMovement(Direction);
-            else
-                controller.OnReceiveMovement(Vector2.zero);
+            {
+                float currentPower = Power;
+                if (currentPower > setting.minPower)
+                {
+                    float power = setting.isDynamicPower ? currentPower : 1;
+                    controller.OnReceiveMovement(Direction, power);
+                }
+                else
+                {
+                    controller.OnReceiveMovement(Vector2.zero, 0);
+                }
+            }
         }
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
             canvasGroup.alpha = 1;
-            isControlling = true;
             pressPosition = eventData.pressPosition;
-
+            isControlling = true;
             SetBaseImagePosition(pressPosition);
             SetPadImagePosition(pressPosition);
         }
@@ -68,6 +76,7 @@ namespace Shinnii.Controller
             pressPosition = origin;
             SetBaseImagePosition(pressPosition);
             SetPadImagePosition(pressPosition);
+            controller.OnReceiveMovement(Vector2.zero, 0);
         }
 
         private void SetBaseImagePosition(Vector2 position)
@@ -92,6 +101,8 @@ namespace Shinnii.Controller
     [Serializable]
     public struct MovementSetting
     {
+        public bool isDynamicPower;
+        public float minPower;
         public float maxRadius;
         public float controllerRadius;
         [Range(0, 1f)] public float disableAlpha;

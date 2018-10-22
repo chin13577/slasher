@@ -5,8 +5,8 @@ public class Status
 {
     public int hp;
     public int maxHp;
-    public float attack;
-    public float defense;
+    public int attack;
+    public int defense;
     public float speed;
 
     public Status()

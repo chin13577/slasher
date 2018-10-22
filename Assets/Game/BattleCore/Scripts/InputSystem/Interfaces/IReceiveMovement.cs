@@ -4,6 +4,6 @@ namespace Shinnii.Controller
 {
     public interface IReceiveMovement
     {
-        void OnReceiveMovement(Vector2 direction);
+        void OnReceiveMovement(Vector2 direction, float power);
     }
 }

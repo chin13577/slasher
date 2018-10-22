@@ -27,6 +27,7 @@ namespace ChinnieUtilities
 
         void OnEnable()
         {
+            defaultFontSize = Convert.ToInt32(40 * 1080 / Convert.ToSingle(Screen.width));
             Application.logMessageReceivedThreaded += HandleLog;
         }
 
@@ -105,7 +106,7 @@ namespace ChinnieUtilities
         private Rect subRect;
         private bool resetTrigger;
         private bool isInitialGui;
-        private int defaultFontSize = Convert.ToInt32(40 * 1080 / Convert.ToSingle(Screen.width));
+        private int defaultFontSize;
         void OnGUI()
         {
             if (!isTrigger)
@@ -159,7 +160,7 @@ namespace ChinnieUtilities
             GUI.skin.label.fontSize = defaultFontSize;
             float size = Screen.width > Screen.height ? Convert.ToSingle(Screen.height) * 0.1f : Convert.ToSingle(Screen.width) * 0.1f;
             subRect = new Rect(Screen.width - size, 5, size, size);
-            addRect = new Rect(Screen.width - (size * 2) - 5f, 5, size, size); 
+            addRect = new Rect(Screen.width - (size * 2) - 5f, 5, size, size);
         }
 
         private void ResetGUI()
