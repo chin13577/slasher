@@ -10,6 +10,8 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     [Header("Component")]
     public Rigidbody2D rigid;
     public Animator animator;
+    public Weapon weapon;
+    public Transform handTransform;
     [Header("UI")]
     public Transform directionTransform;
     [Header("Data")]
@@ -79,7 +81,9 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         rigid.MovePosition(newPos);
         UpdateSprite(direction);
         UpdateDirectionSprite(direction);
+        UpdateHandTransformRotation(direction);
     }
+
     private void UpdateSprite(Vector2 direction)
     {
         if (direction.x < 0)
@@ -89,6 +93,16 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     }
     private void UpdateDirectionSprite(Vector2 direction)
     {
+        directionTransform.rotation = CalculateRotationFromDirection(direction);
+    }
+
+    private void UpdateHandTransformRotation(Vector2 direction)
+    {
+        handTransform.rotation = CalculateRotationFromDirection(direction);
+    }
+
+    private Quaternion CalculateRotationFromDirection(Vector2 direction)
+    {
         float angle = 0;
         if (direction.x > 0)
             angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -97,7 +111,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
 
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         rotation = Quaternion.Euler(20, rotation.eulerAngles.y, rotation.eulerAngles.z);
-        directionTransform.rotation = rotation;
+        return rotation;
     }
 
     #region  ReceiveEvent
@@ -124,5 +138,9 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         for (int i = 0; i < receiveAttackUps.Count; i++)
             receiveAttackUps[i].OnReceiveAttackUp();
     }
+    #endregion
+
+    #region CallbackAnimationEvent
+    public virtual void OnAnimationAttackTrigger(int param) { }
     #endregion
 }

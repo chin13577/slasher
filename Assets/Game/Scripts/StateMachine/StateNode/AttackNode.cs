@@ -6,16 +6,17 @@ using XNode;
 
 namespace Shinnii.StateMachine
 {
-    [CreateNodeMenu("FuryState/AttackState")]
-    public class AttackNode : FuryNode
+    [CreateNodeMenu("Node/AttackNode")]
+    public class AttackNode : Node
     {
         public override StateType StateType { get { return StateType.Attack; } }
+        public float exitTimeOnNextAttack;
         public ReceiveInputTime receiveInputTime;
         public List<TriggerEvent> triggerEvents = new List<TriggerEvent>();
 
-        public ImmuneType immuneTo;
-        [Input] public FuryNode enter;
-        [Output] public FuryNode exit;
-        [Output] public FuryNode onAttack;
+
+        [Input] public Node enter;
+        [Output] public Node exit;
+        [Output] public Node onAttack;
     }
 }

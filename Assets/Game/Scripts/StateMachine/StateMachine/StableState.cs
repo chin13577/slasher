@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Shinnii.StateMachine
 {
-    public class StableState : CharacterState, IReceiveMovement//, IReceiveAttackEvent, IReceiveDamageEvent ,IReceiveSkillEvent
+    public class StableState : CharacterState, IReceiveMovement, IReceiveAttackEnter//, IReceiveAttackEvent, IReceiveDamageEvent ,IReceiveSkillEvent
     {
-        private FuryNode nextNode;
+        private Node nextNode;
 
         public StableState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
         {
@@ -18,7 +18,7 @@ namespace Shinnii.StateMachine
         {
             this.info = machine.GetCurrentNode().info;
             character.AddListener((IReceiveMovement)this);
-            // character.AddListener((IReceiveAttackEvent)this); 
+            character.AddListener((IReceiveAttackEnter)this);
             animator.SetFloat("MoveSpeed", 0);
             animator.CrossFade(info.stateName, info.transitionDuration, info.layerIndex, info.animationOffset);
         }
@@ -26,7 +26,7 @@ namespace Shinnii.StateMachine
         public override void Exit()
         {
             character.RemoveListener((IReceiveMovement)this);
-            // character.RemoveListener((IReceiveAttackEvent)this);  
+            character.RemoveListener((IReceiveAttackEnter)this);
         }
 
         public override CharacterState GetNext()
@@ -41,9 +41,17 @@ namespace Shinnii.StateMachine
         }
 
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
-        { 
+        {
             animator.SetFloat("MoveSpeed", power);
             character.Move(direction, power);
+        }
+        void IReceiveAttackEnter.OnReceiveAttackEnter()
+        {
+            nextNode = machine.GetCurrentNode().GetNextStateFromPort("onAttack");
+            if (nextNode != null)
+            {
+                Finish();
+            }
         }
         /*/ 
 

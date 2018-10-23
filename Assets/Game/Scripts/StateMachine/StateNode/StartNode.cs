@@ -6,9 +6,9 @@ using XNode;
 namespace Shinnii.StateMachine
 {
     [CreateNodeMenu("")]
-    public class StartNode : FuryNode
+    public class StartNode : Node
     {
         public override StateType StateType { get { return StateType.Start; } }
-        [Output] public FuryNode exit;
+        [Output] public Node exit;
     }
 }

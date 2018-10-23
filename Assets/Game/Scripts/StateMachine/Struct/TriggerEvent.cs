@@ -9,5 +9,6 @@ namespace Shinnii.StateMachine
     {
         public StateEvent stateEvent;
         [Range(0f, 1f)] public float triggerNormalizeTime;
+        public int param;
     }
 }

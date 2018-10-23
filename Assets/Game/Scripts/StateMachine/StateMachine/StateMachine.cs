@@ -11,7 +11,7 @@ namespace Shinnii.StateMachine
         public Animator animator;
 
         private StateMachineGraph graph;
-        private FuryNode currentNode;
+        private Node currentNode;
         private StartNode startNode;
         public AnyNode anyNode;
 
@@ -25,12 +25,12 @@ namespace Shinnii.StateMachine
             return stateDict[type];
         }
 
-        public FuryNode GetCurrentNode()
+        public Node GetCurrentNode()
         {
             return currentNode;
         }
 
-        public void SetCurrentNode(FuryNode node)
+        public void SetCurrentNode(Node node)
         {
             currentNode = node;
         }
@@ -53,7 +53,7 @@ namespace Shinnii.StateMachine
         {
             for (int i = 0; i < graph.nodes.Count; i++)
             {
-                var bluePrintState = graph.nodes[i] as FuryNode;
+                var bluePrintState = graph.nodes[i] as Node;
                 var stateType = bluePrintState.StateType;
                 if (!stateDict.ContainsKey(stateType))
                 {
@@ -97,33 +97,26 @@ namespace Shinnii.StateMachine
             }
         }
 
-        public void OnAnimationEventTrigger(StateEvent stateEvent)
+        public void OnAnimationEventTrigger(StateEvent stateEvent, int param)
         {
-            // switch (stateEvent)
-            // {
-            //     case StateEvent.AttackStart:
-            //         break;
-            //     case StateEvent.AttackTrigger:
-            //         character.OnAnimationAttackCallback();
-            //         break;
-            //     case StateEvent.AttackEnd:
-            //         break;
-            //     case StateEvent.SkillCastingStart:
-            //         break;
-            //     case StateEvent.SkillTrigger:
-            //         character.OnAnimationActiveSkillCallback();
-            //         break;
-            //     case StateEvent.SkillCastingEnd:
-            //         break;
-            //     default:
-            //         break;
-            // }
+            switch (stateEvent)
+            {
+                case StateEvent.AttackStart:
+                    break;
+                case StateEvent.AttackTrigger:
+                    character.OnAnimationAttackTrigger(param);
+                    break;
+                case StateEvent.AttackEnd:
+                    break;
+                default:
+                    break;
+            }
 
         }
 
         public void JumpToAnyState(StateType state)
         {
-            FuryNode node = anyNode.FindConnectedNode(state);
+            Node node = anyNode.FindConnectedNode(state);
             if (node != null)
             {
                 SetCurrentNode(node);

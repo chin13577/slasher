@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
-{ 
-    public Animator animator;
+public class Sword : Weapon
+{
+
 }

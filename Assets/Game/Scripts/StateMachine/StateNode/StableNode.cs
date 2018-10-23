@@ -5,14 +5,13 @@ using System;
 
 namespace Shinnii.StateMachine
 {
-    [CreateNodeMenu("FuryState/StableNode")]
-    public class StableNode : FuryNode
+    [CreateNodeMenu("Node/StableNode")]
+    public class StableNode : Node
     {
-        public ImmuneType immuneTo;
         public override StateType StateType { get { return StateType.Stable; } }
 
-        [Input] public FuryNode enter;
-        [Output] public FuryNode onAttack;
-        [Output] public FuryNode onDash;
+        [Input] public Node enter;
+        [Output] public Node onAttack;
+        [Output] public Node onDash;
     }
 }

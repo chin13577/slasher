@@ -7,7 +7,7 @@ using XNode;
 namespace Shinnii.StateMachine
 {
     public enum StateType { Start, Stable, Attack, Dash, Dead, Any, Branch, Skill, Struggle, Stun }
-    public abstract class FuryNode : XNode.Node
+    public abstract class Node : XNode.Node
     {
         public AnimationInfo info;
         public abstract StateType StateType { get; }
@@ -22,11 +22,11 @@ namespace Shinnii.StateMachine
             }
         }
 
-        public FuryNode GetNextStateFromPort(string portName)
+        public Node GetNextStateFromPort(string portName)
         {
             NodePort exitPort = GetOutputPort(portName);
             if (exitPort.IsConnected)
-                return exitPort.Connection.node as FuryNode;
+                return exitPort.Connection.node as Node;
             else
                 return null;
         }

@@ -22,7 +22,7 @@ namespace Shinnii.StateMachine
         public override CharacterState GetNext()
         {
 
-            FuryNode nextBluePrint = machine.GetCurrentNode().GetNextStateFromPort("exit");
+            Node nextBluePrint = machine.GetCurrentNode().GetNextStateFromPort("exit");
             if (nextBluePrint != null)
             {
                 machine.SetCurrentNode(nextBluePrint);

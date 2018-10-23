@@ -2,41 +2,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Shinnii.Controller;
 
 namespace Shinnii.StateMachine
 {
-    public class AttackState : CharacterState//, IReceiveDamageEvent, IReceiveAttackEvent, IReceiveMovementEvent, IReceiveSkillEvent
+    public class AttackState : CharacterState, IReceiveMovement, IReceiveAttackEnter//, IReceiveDamageEvent, IReceiveAttackEvent, IReceiveMovementEvent, IReceiveSkillEvent
     {
         public ReceiveInputTime receiveInputTime;
         public List<TriggerEvent> triggerEvents;
 
-        private FuryNode nextBluePrint;
+        private Node nextBluePrint;
         private AttackNode currentAttackNode;
         private Coroutine animRoutine;
         private List<Coroutine> triggerEventRoutines = new List<Coroutine>();
-
-
+        private Animator weaponAnimator;
+        private bool isContinueAttack;
         public AttackState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
         {
+            weaponAnimator = character.weapon.animator;
         }
 
         public override void Enter()
         {
             nextBluePrint = null;
-            this.info = machine.GetCurrentNode().info;
             currentAttackNode = machine.GetCurrentNode() as AttackNode;
+            this.info = currentAttackNode.info;
             this.receiveInputTime = currentAttackNode.receiveInputTime;
             this.triggerEvents = new List<TriggerEvent>(currentAttackNode.triggerEvents);
 
-            // pawn.AddListener((IReceiveDamageEvent)this);
-            // pawn.AddListener((IReceiveMovementEvent)this);
-            // pawn.AddListener((IReceiveAttackEvent)this);
-            // pawn.AddListener((IReceiveSkillEvent)this);
+            character.AddListener((IReceiveMovement)this);
+            character.AddListener((IReceiveAttackEnter)this);
+
             animRoutine = character.StartCoroutine(Animate());
         }
 
         public override void Exit()
         {
+            weaponAnimator.CrossFade("Idle", 0.1f, 0, 0);
+            isContinueAttack = false;
             if (animRoutine != null)
                 character.StopCoroutine(animRoutine);
             for (int i = 0; i < triggerEventRoutines.Count; i++)
@@ -45,10 +48,9 @@ namespace Shinnii.StateMachine
                     character.StopCoroutine(triggerEventRoutines[i]);
             }
             triggerEventRoutines.Clear();
-            // pawn.RemoveListener((IReceiveDamageEvent)this);
-            // pawn.RemoveListener((IReceiveMovementEvent)this);
-            // pawn.RemoveListener((IReceiveAttackEvent)this);
-            // pawn.RemoveListener((IReceiveSkillEvent)this);
+
+            character.RemoveListener((IReceiveMovement)this);
+            character.RemoveListener((IReceiveAttackEnter)this);
         }
 
         public override CharacterState GetNext()
@@ -64,9 +66,10 @@ namespace Shinnii.StateMachine
 
         IEnumerator Animate()
         {
-            animator.CrossFade(info.stateName, info.transitionDuration, info.layerIndex, info.animationOffset);
+            weaponAnimator.CrossFade(info.stateName, info.transitionDuration,
+                                    info.layerIndex, info.animationOffset);
             yield return null;
-            while (animator.IsInTransition(0))
+            while (weaponAnimator.IsInTransition(0))
             {
                 yield return null;
             }
@@ -76,8 +79,14 @@ namespace Shinnii.StateMachine
             }
 
             float exitTime = info.hasExitTime ? info.exitTime : 1;
-            while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= exitTime)
+            while (weaponAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime <= exitTime)
+            {
+                if (isContinueAttack)
+                {
+                    exitTime = currentAttackNode.exitTimeOnNextAttack;
+                }
                 yield return null;
+            }
             if (nextBluePrint == null)
                 nextBluePrint = machine.GetCurrentNode().GetNextStateFromPort("exit");
             if (nextBluePrint != null)
@@ -88,18 +97,26 @@ namespace Shinnii.StateMachine
         {
             while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= triggerEvent.triggerNormalizeTime)
                 yield return null;
-            machine.OnAnimationEventTrigger(triggerEvent.stateEvent);
+            machine.OnAnimationEventTrigger(triggerEvent.stateEvent, triggerEvent.param);
         }
 
-        // void IReceiveAttackEvent.OnAttack()
-        // {
-        //     float currentNormalizeTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        //     if (currentNormalizeTime > receiveInputTime.startTime && currentNormalizeTime < receiveInputTime.exitTime)
-        //     {
-        //         if (nextBluePrint == null)
-        //             nextBluePrint = machine.GetCurrentNode().GetNextStateFromPort("onAttack");
-        //     }
-        // }
+        void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
+        {
+            animator.SetFloat("MoveSpeed", power);
+            character.Move(direction, power);
+        }
+
+        void IReceiveAttackEnter.OnReceiveAttackEnter()
+        {
+            float currentNormalizeTime = weaponAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            if (currentNormalizeTime > receiveInputTime.startTime && currentNormalizeTime < receiveInputTime.exitTime)
+            {
+                if (nextBluePrint == null)
+                    nextBluePrint = machine.GetCurrentNode().GetNextStateFromPort("onAttack");
+                if (nextBluePrint != null)
+                    isContinueAttack = true;
+            }
+        }
 
         // void IReceiveMovementEvent.OnControl(Vector3 direction, float power)
         // {

@@ -7,15 +7,15 @@ namespace Shinnii.StateMachine
     public class StateMachineGraph : XNode.NodeGraph
     {
         [HideInInspector]
-        public FuryNode startState;
+        public Node startState;
         [HideInInspector]
-        public FuryNode anyState;
+        public Node anyState;
 
-        public FuryNode GetNode(StateType type)
+        public Node GetNode(StateType type)
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                FuryNode node = nodes[i] as FuryNode;
+                Node node = nodes[i] as Node;
                 if (type == node.StateType)
                     return node;
             }

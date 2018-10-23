@@ -16,7 +16,7 @@ namespace Shinnii.Controller
         [SerializeField] private RectTransform padImage;
         [SerializeField] private CanvasGroup canvasGroup;
         public Vector2 RawInput { get { return padImage.localPosition - baseImage.localPosition; } }
-        private Vector2 cacheDirection;
+        private Vector2 cacheDirection = new Vector2(1, 0);
         public Vector2 Direction
         {
             get
@@ -44,7 +44,8 @@ namespace Shinnii.Controller
         {
             if (isControlling)
             {
-                cacheDirection = Direction;
+                if (Direction != Vector2.zero)
+                    cacheDirection = Direction;
                 float currentPower = Power;
                 if (currentPower > setting.minPower)
                 {
@@ -59,7 +60,7 @@ namespace Shinnii.Controller
         }
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
-            canvasGroup.alpha = 1;
+            canvasGroup.alpha = setting.enableAlpha;
             pressPosition = eventData.pressPosition;
             isControlling = true;
             SetBaseImagePosition(pressPosition);
@@ -108,5 +109,6 @@ namespace Shinnii.Controller
         public float maxRadius;
         public float controllerRadius;
         [Range(0, 1f)] public float disableAlpha;
+        [Range(0, 1f)] public float enableAlpha;
     }
 }
