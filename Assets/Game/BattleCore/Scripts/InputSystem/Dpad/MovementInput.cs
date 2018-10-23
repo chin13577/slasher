@@ -16,6 +16,7 @@ namespace Shinnii.Controller
         [SerializeField] private RectTransform padImage;
         [SerializeField] private CanvasGroup canvasGroup;
         public Vector2 RawInput { get { return padImage.localPosition - baseImage.localPosition; } }
+        private Vector2 cacheDirection;
         public Vector2 Direction
         {
             get
@@ -43,15 +44,16 @@ namespace Shinnii.Controller
         {
             if (isControlling)
             {
+                cacheDirection = Direction;
                 float currentPower = Power;
                 if (currentPower > setting.minPower)
                 {
                     float power = setting.isDynamicPower ? currentPower : 1;
-                    controller.OnReceiveMovement(Direction, power);
+                    controller.OnReceiveMovement(cacheDirection, power);
                 }
                 else
                 {
-                    controller.OnReceiveMovement(Vector2.zero, 0);
+                    controller.OnReceiveMovement(cacheDirection, 0);
                 }
             }
         }
@@ -76,7 +78,7 @@ namespace Shinnii.Controller
             pressPosition = origin;
             SetBaseImagePosition(pressPosition);
             SetPadImagePosition(pressPosition);
-            controller.OnReceiveMovement(Vector2.zero, 0);
+            controller.OnReceiveMovement(cacheDirection, 0);
         }
 
         private void SetBaseImagePosition(Vector2 position)

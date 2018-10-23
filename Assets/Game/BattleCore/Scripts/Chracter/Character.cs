@@ -7,11 +7,19 @@ using System;
 
 public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttackable
 {
-    public Status status = new Status();
+    [Header("Component")]
     public Rigidbody2D rigid;
+    public Animator animator;
+    [Header("UI")]
+    public Transform directionTransform;
+    [Header("Data")]
+    public Status status = new Status();
     [SerializeField] private StateMachineGraph graph;
     private StateMachine machine;
-    public Animator animator;
+
+    private Vector2 _direction = new Vector2(1, 0);
+    public Vector2 Direction { get { return _direction; } set { _direction = value; } }
+
     public List<IReceiveMovement> receiveMovements = new List<IReceiveMovement>();
     public List<IReceiveAttackEnter> receiveAttackEnters = new List<IReceiveAttackEnter>();
     public List<IReceiveAttackDrag> receiveAttackDrags = new List<IReceiveAttackDrag>();
@@ -19,6 +27,8 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     void Awake()
     {
         machine = new StateMachine(graph, this);
+        UpdateSprite(Direction);
+        UpdateDirectionSprite(Direction);
     }
 
     #region ListenerHandler
@@ -64,11 +74,12 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     #endregion
     public void Move(Vector2 direction, float power)
     {
+        Direction = direction;
         Vector3 newPos = this.transform.position + new Vector3(direction.x, direction.y, 0) * status.speed * power * Time.deltaTime;
         rigid.MovePosition(newPos);
         UpdateSprite(direction);
+        UpdateDirectionSprite(direction);
     }
-
     private void UpdateSprite(Vector2 direction)
     {
         if (direction.x < 0)
@@ -76,7 +87,18 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         else if (direction.x > 0)
             transform.localScale = new Vector3(1, 1, 1);
     }
+    private void UpdateDirectionSprite(Vector2 direction)
+    {
+        float angle = 0;
+        if (direction.x > 0)
+            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        else
+            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 180f;
 
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        rotation = Quaternion.Euler(20, rotation.eulerAngles.y, rotation.eulerAngles.z);
+        directionTransform.rotation = rotation;
+    }
 
     #region  ReceiveEvent
     public void OnReceiveMovement(Vector2 direction, float power)

@@ -7,13 +7,14 @@ namespace BattleCore
 {
     public class GameManager : MonoBehaviour
     {
+        public Transform world;
         public DpadController controller;
         // implement factory letter.
         public Hero heroPrefab;
 
         void Awake()
         {
-            var hero = Instantiate(heroPrefab);
+            var hero = Instantiate(heroPrefab, world);
             controller.SetReceiver(hero.gameObject);
         }
 
