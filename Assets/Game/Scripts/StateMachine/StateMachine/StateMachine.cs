@@ -64,6 +64,12 @@ namespace Shinnii.StateMachine
             }
         }
 
+        public void Update()
+        {
+            if (currentState != null)
+                currentState.Update();
+        }
+
         public void UpdateState()
         {
             if (currentState != null)
@@ -71,13 +77,7 @@ namespace Shinnii.StateMachine
             currentState = currentState.GetNext();
 
             if (currentState != null)
-                character.StartCoroutine(ActiveState(currentState));
-        }
-
-        IEnumerator ActiveState(CharacterState node)
-        {
-            yield return null;
-            node.Enter();
+                currentState.Enter();
         }
 
         public CharacterState CreateFuryState(StateType type)
@@ -88,6 +88,8 @@ namespace Shinnii.StateMachine
                     return null;
                 case StateType.Attack:
                     return new AttackState(graph, this);
+                case StateType.Dash:
+                    return new DashState(graph, this);
                 case StateType.Start:
                     return new StartState(graph, this);
                 case StateType.Stable:

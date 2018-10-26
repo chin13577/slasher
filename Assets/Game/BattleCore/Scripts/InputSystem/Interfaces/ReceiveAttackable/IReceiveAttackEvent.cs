@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Shinnii.Controller
 {
-    public interface IReceiveAttackable : IReceiveAttackEnter, IReceiveAttackDrag, IReceiveAttackUp
+    public interface IReceiveAttackEvent : IReceiveAttackEnter, IReceiveAttackDrag, IReceiveAttackUp
     {
     }
 }

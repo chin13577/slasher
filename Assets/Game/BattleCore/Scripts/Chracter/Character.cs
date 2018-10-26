@@ -5,7 +5,7 @@ using Shinnii.Controller;
 using Shinnii.StateMachine;
 using System;
 
-public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttackable
+public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttackEvent, IReceiveDashEvent
 {
     [Header("Component")]
     public Rigidbody2D rigid;
@@ -21,16 +21,28 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
 
     private Vector2 _direction = new Vector2(1, 0);
     public Vector2 Direction { get { return _direction; } set { _direction = value; } }
+    private float currentPower;
 
     public List<IReceiveMovement> receiveMovements = new List<IReceiveMovement>();
+    public List<IReceiveDashEvent> receiveDashEvents = new List<IReceiveDashEvent>();
     public List<IReceiveAttackEnter> receiveAttackEnters = new List<IReceiveAttackEnter>();
     public List<IReceiveAttackDrag> receiveAttackDrags = new List<IReceiveAttackDrag>();
     public List<IReceiveAttackUp> receiveAttackUps = new List<IReceiveAttackUp>();
+    public float dashSpeed { get { return status.speed * 5; } }
+    public bool IsDash { get; set; }
+
     void Awake()
     {
         machine = new StateMachine(graph, this);
         UpdateSprite(Direction);
         UpdateDirectionSprite(Direction);
+        rigid.isKinematic = true;
+    }
+
+    void Update()
+    {
+        machine.Update();
+        rigid.isKinematic = currentPower == 0 && !IsDash;
     }
 
     #region ListenerHandler
@@ -39,6 +51,11 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     {
         if (!receiveMovements.Contains(receiver))
             receiveMovements.Add(receiver);
+    }
+    public void AddListener(IReceiveDashEvent receiver)
+    {
+        if (!receiveDashEvents.Contains(receiver))
+            receiveDashEvents.Add(receiver);
     }
     public void AddListener(IReceiveAttackEnter receiver)
     {
@@ -59,6 +76,10 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     {
         receiveMovements.Remove(receiver);
     }
+    public void RemoveListener(IReceiveDashEvent receiver)
+    {
+        receiveDashEvents.Remove(receiver);
+    }
     public void RemoveListener(IReceiveAttackEnter receiver)
     {
         receiveAttackEnters.Remove(receiver);
@@ -77,6 +98,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     public void Move(Vector2 direction, float power)
     {
         Direction = direction;
+        currentPower = power;
         Vector3 newPos = this.transform.position + new Vector3(direction.x, direction.y, 0) * status.speed * power * Time.deltaTime;
         rigid.MovePosition(newPos);
         UpdateSprite(direction);
@@ -121,6 +143,12 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
             receiveMovements[i].OnReceiveMovement(direction, power);
     }
 
+    void IReceiveDashEvent.OnReceiveDashEvent()
+    {
+        for (int i = 0; i < receiveDashEvents.Count; i++)
+            receiveDashEvents[i].OnReceiveDashEvent();
+    }
+
     void IReceiveAttackEnter.OnReceiveAttackEnter()
     {
         for (int i = 0; i < receiveAttackEnters.Count; i++)
@@ -142,5 +170,6 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
 
     #region CallbackAnimationEvent
     public virtual void OnAnimationAttackTrigger(int param) { }
+
     #endregion
 }

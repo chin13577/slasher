@@ -21,6 +21,7 @@ namespace Shinnii.StateMachine
         }
 
         public abstract void Enter();
+        public virtual void Update() { }
         public abstract void Exit();
 
         public virtual void Finish()

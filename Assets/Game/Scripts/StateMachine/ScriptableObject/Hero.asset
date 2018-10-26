@@ -17,6 +17,7 @@ MonoBehaviour:
   - {fileID: 114177592193295352}
   - {fileID: 114314326465882396}
   - {fileID: 114866384939437822}
+  - {fileID: 114029590426228800}
   startState: {fileID: 114815359407553228}
   anyState: {fileID: 114010493846488134}
 --- !u!114 &114010493846488134
@@ -52,6 +53,55 @@ MonoBehaviour:
     hasExitTime: 0
     exitTime: 0
   exit: {fileID: 0}
+--- !u!114 &114029590426228800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd00a66e4179fe4f9660dde00a7eb12, type: 3}
+  m_Name: Dash Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 194, y: 175}
+  ports:
+    keys:
+    - enter
+    - exit
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114029590426228800}
+      _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: onDash
+        node: {fileID: 114177592193295352}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 114029590426228800}
+      _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: enter
+        node: {fileID: 114177592193295352}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _dynamic: 0
+  info:
+    stateName: Idle
+    transitionDuration: 0
+    animationOffset: 0
+    layerIndex: 0
+    hasExitTime: 1
+    exitTime: 0.2
+  enter: {fileID: 0}
+  exit: {fileID: 0}
 --- !u!114 &114177592193295352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,6 +135,9 @@ MonoBehaviour:
       - fieldName: exit
         node: {fileID: 114866384939437822}
         reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 114029590426228800}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _dynamic: 0
@@ -103,7 +156,10 @@ MonoBehaviour:
       _node: {fileID: 114177592193295352}
       _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: enter
+        node: {fileID: 114029590426228800}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _dynamic: 0

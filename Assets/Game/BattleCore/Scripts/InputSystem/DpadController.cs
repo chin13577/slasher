@@ -4,25 +4,26 @@ using UnityEngine;
 
 namespace Shinnii.Controller
 {
-    public class DpadController : MonoBehaviour, IReceiveMovement, IReceiveAttackable
+    public class DpadController : MonoBehaviour, IReceiveMovement, IReceiveAttackEvent, IReceiveDashEvent
     {
 
         public MovementInput movementInput;
         public GameObject receiver;
-        public IReceiveMovement movementReceiver;
-        public IReceiveAttackable attackReceiver;
+        private IReceiveMovement movementReceiver;
+        private IReceiveAttackEvent attackReceiver;
+        private IReceiveDashEvent dashReceiver;
 
         public void SetReceiver(GameObject receiver)
         {
             this.receiver = receiver;
 
             IReceiveMovement movementReceiver = receiver.GetComponent<IReceiveMovement>();
-            IReceiveAttackable attackReceiver = receiver.GetComponent<IReceiveAttackable>();
+            IReceiveAttackEvent attackReceiver = receiver.GetComponent<IReceiveAttackEvent>();
+            IReceiveDashEvent dashReceiver = receiver.GetComponent<IReceiveDashEvent>();
 
-            if (movementReceiver != null)
-                this.movementReceiver = movementReceiver;
-            if (attackReceiver != null)
-                this.attackReceiver = attackReceiver;
+            this.movementReceiver = movementReceiver;
+            this.attackReceiver = attackReceiver;
+            this.dashReceiver = dashReceiver;
         }
 
         public void OnReceiveMovement(Vector2 direction, float power)
@@ -47,6 +48,12 @@ namespace Shinnii.Controller
         {
             if (attackReceiver != null)
                 attackReceiver.OnReceiveAttackUp();
+        }
+
+         public void OnReceiveDashEvent()
+        {
+            if (dashReceiver != null)
+                dashReceiver.OnReceiveDashEvent();
         }
     }
 }
