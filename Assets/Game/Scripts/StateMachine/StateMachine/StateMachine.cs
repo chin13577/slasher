@@ -94,6 +94,8 @@ namespace Shinnii.StateMachine
                     return new StartState(graph, this);
                 case StateType.Stable:
                     return new StableState(graph, this);
+                case StateType.WeaponBranch:
+                    return new WeaponBranchState(graph, this);
                 default:
                     throw new NotImplementedException();
             }

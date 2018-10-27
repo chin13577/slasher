@@ -45,14 +45,15 @@ namespace Shinnii.StateMachine
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
         {
             animator.SetFloat("MoveSpeed", power);
-            character.Move(direction, power);
+            character.Rotate(direction);
+            character.Move(power);
         }
         void IReceiveDashEvent.OnReceiveDashEvent()
         {
-            if (character.IsDash) return; 
+            if (character.IsDash) return;
             nextNode = machine.GetCurrentNode().GetNextStateFromPort("onDash");
             if (nextNode != null)
-            { 
+            {
                 Finish();
             }
         }

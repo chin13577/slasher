@@ -103,7 +103,8 @@ namespace Shinnii.StateMachine
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
         {
             animator.SetFloat("MoveSpeed", power);
-            character.Move(direction, power);
+            character.Rotate(direction);
+            character.Move(power);
         }
 
         void IReceiveAttackEnter.OnReceiveAttackEnter()
@@ -117,19 +118,7 @@ namespace Shinnii.StateMachine
                     isContinueAttack = true;
             }
         }
-
-        // void IReceiveMovementEvent.OnControl(Vector3 direction, float power)
-        // {
-        //     animator.SetFloat("MoveSpeed", power);
-        //     if (pawn.IsDash) return;
-        //     if (!pawn.IsMovable) return;
-        //     pawn.currentDirection = direction;
-        //     pawn.currentPower = power;
-        // }
-
-        // void IReceiveMovementEvent.OnDash() { }
-        // void IReceiveMovementEvent.OnFlick(Vector3 direction, float power) { }
-
+  
         // void IReceiveSkillEvent.OnInputSkill()
         // {
         //     machine.SetAppendingSkill(machine.anyNode.FindConnectedNode(StateType.Skill) as SkillNode);

@@ -28,7 +28,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     public List<IReceiveAttackEnter> receiveAttackEnters = new List<IReceiveAttackEnter>();
     public List<IReceiveAttackDrag> receiveAttackDrags = new List<IReceiveAttackDrag>();
     public List<IReceiveAttackUp> receiveAttackUps = new List<IReceiveAttackUp>();
-    public float dashSpeed { get { return status.speed * 5; } }
+    public float dashSpeed { get { return status.speed * 3; } }
     public bool IsDash { get; set; }
 
     void Awake()
@@ -95,15 +95,18 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
 
 
     #endregion
-    public void Move(Vector2 direction, float power)
+    public void Rotate(Vector2 direction)
     {
         Direction = direction;
+        UpdateSprite(Direction);
+        UpdateDirectionSprite(Direction);
+        UpdateHandTransformRotation(Direction);
+    }
+    public void Move(float power)
+    {
         currentPower = power;
-        Vector3 newPos = this.transform.position + new Vector3(direction.x, direction.y, 0) * status.speed * power * Time.deltaTime;
+        Vector3 newPos = this.transform.position + new Vector3(Direction.x, Direction.y, 0) * status.speed * power * Time.deltaTime;
         rigid.MovePosition(newPos);
-        UpdateSprite(direction);
-        UpdateDirectionSprite(direction);
-        UpdateHandTransformRotation(direction);
     }
 
     private void UpdateSprite(Vector2 direction)

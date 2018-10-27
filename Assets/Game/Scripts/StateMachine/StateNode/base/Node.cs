@@ -6,7 +6,7 @@ using XNode;
 
 namespace Shinnii.StateMachine
 {
-    public enum StateType { Start, Stable, Attack, Dash, Dead, Any, Branch, Skill, Struggle, Stun }
+    public enum StateType { Attack, Any, Branch, Start, Stable, Dash, Dead, Skill, Struggle, Stun, WeaponBranch }
     public abstract class Node : XNode.Node
     {
         public AnimationInfo info;

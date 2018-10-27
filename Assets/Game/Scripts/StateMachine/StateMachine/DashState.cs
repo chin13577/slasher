@@ -7,7 +7,7 @@ using Shinnii.Controller;
 namespace Shinnii.StateMachine
 {
 
-    public class DashState : CharacterState
+    public class DashState : CharacterState, IReceiveMovement
     {
         private Node nextBluePrint;
         private Coroutine animRoutine;
@@ -22,6 +22,7 @@ namespace Shinnii.StateMachine
             character.IsDash = true;
             dashTime = 0.2f;
             character.rigid.velocity = character.Direction * character.dashSpeed;
+            character.AddListener((IReceiveMovement)this);
             animRoutine = character.StartCoroutine(Animate());
         }
 
@@ -37,7 +38,8 @@ namespace Shinnii.StateMachine
         public override void Exit()
         {
             character.IsDash = false;
-                character.rigid.velocity = Vector2.zero;
+            character.RemoveListener((IReceiveMovement)this);
+            character.rigid.velocity = Vector2.zero;
             if (animRoutine != null)
                 character.StopCoroutine(animRoutine);
         }
@@ -73,5 +75,9 @@ namespace Shinnii.StateMachine
                 Finish();
         }
 
+        void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
+        {
+            character.Rotate(direction);
+        }
     }
 }

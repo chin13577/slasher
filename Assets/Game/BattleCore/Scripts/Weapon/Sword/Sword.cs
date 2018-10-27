@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Sword : Weapon
 {
-
+    public override WeaponType WeaponType { get { return WeaponType.Sword; } }
 }
