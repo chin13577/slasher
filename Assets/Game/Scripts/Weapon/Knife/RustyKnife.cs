@@ -8,7 +8,7 @@ public class RustyKnife : Weapon
     {
         if (Vector3.Dot(owner.direction, target.direction) >= 0)
         {
-            if (target.CanAttacked)
+            if (target.CanAttack)
             {
                 target.TakeDamage(10);
                 print("Hit");
@@ -19,9 +19,8 @@ public class RustyKnife : Weapon
             var pushable = target.GetTransform().GetComponent<IPushable>();
             if (pushable != null)
             {
-                Vector2 forceDirection = (target.position.ToVector2() - hitPos).normalized;
-                print(forceDirection);
-                pushable.Push(/*target.direction.ToVector2() + */forceDirection * 100);
+                Vector2 targetDirection = target.GetTransform().position.ToVector2() - hitPos;
+                pushable.Push(targetDirection.normalized);
                 print("push");
             }
         }

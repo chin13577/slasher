@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("MockupData")]
     public HeroData mockHeroStatus;
-    public Enemy enemy;
     [Header("Game")]
     public InputSystem inputSystem;
     public CharacterSystem characterSystem;
@@ -25,6 +24,5 @@ public class GameManager : MonoBehaviour
         inputSystem.SetReceiver(characterSystem.hero);
 
         gameLoop.Initialize();
-        gameLoop.AddListener(enemy);
     }
 }

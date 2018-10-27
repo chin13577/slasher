@@ -3,8 +3,7 @@
 public interface IDamageable
 {
     Vector3 direction { get; }
-    Vector3 position { get; }
-    bool CanAttacked { get; }
+    bool CanAttack { get; }
 
     Transform GetTransform();
     void TakeDamage(float damage);
