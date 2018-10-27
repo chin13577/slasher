@@ -5,7 +5,7 @@ using Shinnii.Controller;
 using Shinnii.StateMachine;
 using System;
 
-public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttackEvent, IReceiveDashEvent
+public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttackEvent, IReceiveDashEvent, IDamageable
 {
     [Header("Component")]
     public Rigidbody2D rigid;
@@ -15,12 +15,15 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     [Header("UI")]
     public Transform directionTransform;
     [Header("Data")]
+    public Team team;
+    public LayerMask maskEnemy;
     public Status status = new Status();
     [SerializeField] private StateMachineGraph graph;
     private StateMachine machine;
 
     private Vector2 _direction = new Vector2(1, 0);
     public Vector2 Direction { get { return _direction; } set { _direction = value; } }
+    public Vector3 AttackPosition { get { return (transform.position.ToVector2() + Direction * 0.8f); } }
     private float currentPower;
 
     public List<IReceiveMovement> receiveMovements = new List<IReceiveMovement>();
@@ -28,6 +31,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     public List<IReceiveAttackEnter> receiveAttackEnters = new List<IReceiveAttackEnter>();
     public List<IReceiveAttackDrag> receiveAttackDrags = new List<IReceiveAttackDrag>();
     public List<IReceiveAttackUp> receiveAttackUps = new List<IReceiveAttackUp>();
+
     public float dashSpeed { get { return status.speed * 3; } }
     public bool IsDash { get; set; }
 
@@ -37,6 +41,8 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         UpdateSprite(Direction);
         UpdateDirectionSprite(Direction);
         rigid.isKinematic = true;
+        if (weapon != null)
+            weapon.Initialize(this);
     }
 
     void Update()
@@ -138,6 +144,16 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         rotation = Quaternion.Euler(20, rotation.eulerAngles.y, rotation.eulerAngles.z);
         return rotation;
+    }
+
+    void IDamageable.TakeDamage(DamageData data)
+    {
+        print(data.damage);
+    }
+
+    Team IDamageable.GetTeam()
+    {
+        return this.team;
     }
 
     #region  ReceiveEvent

@@ -14,7 +14,6 @@ namespace Shinnii.StateMachine
         private Node nextBluePrint;
         private AttackNode currentAttackNode;
         private Coroutine animRoutine;
-        private List<Coroutine> triggerEventRoutines = new List<Coroutine>();
         private Animator weaponAnimator;
         private bool isContinueAttack;
         public AttackState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
@@ -42,12 +41,6 @@ namespace Shinnii.StateMachine
             isContinueAttack = false;
             if (animRoutine != null)
                 character.StopCoroutine(animRoutine);
-            for (int i = 0; i < triggerEventRoutines.Count; i++)
-            {
-                if (triggerEventRoutines[i] != null)
-                    character.StopCoroutine(triggerEventRoutines[i]);
-            }
-            triggerEventRoutines.Clear();
 
             character.RemoveListener((IReceiveMovement)this);
             character.RemoveListener((IReceiveAttackEnter)this);
@@ -73,31 +66,34 @@ namespace Shinnii.StateMachine
             {
                 yield return null;
             }
-            for (int i = 0; i < triggerEvents.Count; i++)
-            {
-                triggerEventRoutines.Add(character.StartCoroutine(ExcecuteEventTrigger(triggerEvents[i])));
-            }
 
             float exitTime = info.hasExitTime ? info.exitTime : 1;
             while (weaponAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime <= exitTime)
             {
-                if (isContinueAttack)
-                {
-                    exitTime = currentAttackNode.exitTimeOnNextAttack;
-                }
+
+                if (isContinueAttack) { exitTime = currentAttackNode.exitTimeOnNextAttack; }
+                ExcecuteTriggerEvent();
                 yield return null;
             }
+            ExcecuteTriggerEvent(true);
+            yield return null;
             if (nextBluePrint == null)
                 nextBluePrint = machine.GetCurrentNode().GetNextStateFromPort("exit");
             if (nextBluePrint != null)
                 Finish();
         }
 
-        IEnumerator ExcecuteEventTrigger(TriggerEvent triggerEvent)
+        private void ExcecuteTriggerEvent(bool forceExcicute = false)
         {
-            while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= triggerEvent.triggerNormalizeTime)
-                yield return null;
-            machine.OnAnimationEventTrigger(triggerEvent.stateEvent, triggerEvent.param);
+            for (int i = 0; i < triggerEvents.Count; i++)
+            {
+                if (forceExcicute || animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= triggerEvents[i].triggerNormalizeTime)
+                {
+                    machine.OnAnimationEventTrigger(triggerEvents[i].stateEvent, triggerEvents[i].param);
+                    triggerEvents.Remove(triggerEvents[i]);
+                    i--;
+                }
+            }
         }
 
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
@@ -118,7 +114,7 @@ namespace Shinnii.StateMachine
                     isContinueAttack = true;
             }
         }
-  
+
         // void IReceiveSkillEvent.OnInputSkill()
         // {
         //     machine.SetAppendingSkill(machine.anyNode.FindConnectedNode(StateType.Skill) as SkillNode);

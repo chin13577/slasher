@@ -243,7 +243,7 @@ MonoBehaviour:
       _dynamic: 0
   info:
     stateName: Attack1
-    transitionDuration: 0.1
+    transitionDuration: 0
     animationOffset: 0
     layerIndex: 0
     hasExitTime: 1
@@ -252,7 +252,10 @@ MonoBehaviour:
   receiveInputTime:
     startTime: 0.33
     exitTime: 0.809
-  triggerEvents: []
+  triggerEvents:
+  - stateEvent: 3
+    triggerNormalizeTime: 0.5
+    param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
   onAttack: {fileID: 0}
@@ -310,7 +313,7 @@ MonoBehaviour:
       _dynamic: 0
   info:
     stateName: Attack1
-    transitionDuration: 0.1
+    transitionDuration: 0
     animationOffset: 0
     layerIndex: 0
     hasExitTime: 1
@@ -319,7 +322,10 @@ MonoBehaviour:
   receiveInputTime:
     startTime: 0.33
     exitTime: 0.809
-  triggerEvents: []
+  triggerEvents:
+  - stateEvent: 3
+    triggerNormalizeTime: 0.5
+    param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
   onAttack: {fileID: 0}
@@ -482,7 +488,7 @@ MonoBehaviour:
       _dynamic: 0
   info:
     stateName: Attack1
-    transitionDuration: 0.1
+    transitionDuration: 0
     animationOffset: 0
     layerIndex: 0
     hasExitTime: 1
@@ -491,7 +497,10 @@ MonoBehaviour:
   receiveInputTime:
     startTime: 0.33
     exitTime: 0.6
-  triggerEvents: []
+  triggerEvents:
+  - stateEvent: 3
+    triggerNormalizeTime: 0.5
+    param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
   onAttack: {fileID: 0}
@@ -546,7 +555,7 @@ MonoBehaviour:
       _dynamic: 0
   info:
     stateName: Attack2
-    transitionDuration: 0.1
+    transitionDuration: 0
     animationOffset: 0
     layerIndex: 0
     hasExitTime: 1
@@ -555,7 +564,10 @@ MonoBehaviour:
   receiveInputTime:
     startTime: 0.33
     exitTime: 0.6
-  triggerEvents: []
+  triggerEvents:
+  - stateEvent: 3
+    triggerNormalizeTime: 0.5
+    param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
   onAttack: {fileID: 0}
@@ -646,7 +658,7 @@ MonoBehaviour:
       _dynamic: 0
   info:
     stateName: Attack2
-    transitionDuration: 0.1
+    transitionDuration: 0
     animationOffset: 0.1
     layerIndex: 0
     hasExitTime: 1
@@ -655,7 +667,10 @@ MonoBehaviour:
   receiveInputTime:
     startTime: 0.33
     exitTime: 0.9
-  triggerEvents: []
+  triggerEvents:
+  - stateEvent: 3
+    triggerNormalizeTime: 0.5
+    param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
   onAttack: {fileID: 0}
