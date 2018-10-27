@@ -11,6 +11,14 @@ namespace Shinnii.Controller
         public DpadController controller;
         [SerializeField] Image image;
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                controller.OnReceiveDashEvent();
+            }
+        }
+
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {
             controller.OnReceiveDashEvent();

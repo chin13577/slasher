@@ -95,6 +95,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
 
 
     #endregion
+
     public void Rotate(Vector2 direction)
     {
         Direction = direction;

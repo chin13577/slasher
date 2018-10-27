@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Shinnii.Controller;
+using System;
 
 namespace Shinnii.StateMachine
 {
@@ -11,7 +12,9 @@ namespace Shinnii.StateMachine
     {
         private Node nextBluePrint;
         private Coroutine animRoutine;
-        private float dashTime;
+        private Coroutine countDownRountine;
+
+        private Vector2 dashDirection;
         public DashState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
         {
         }
@@ -20,19 +23,11 @@ namespace Shinnii.StateMachine
             nextBluePrint = null;
             this.info = machine.GetCurrentNode().info;
             character.IsDash = true;
-            dashTime = 0.2f;
-            character.rigid.velocity = character.Direction * character.dashSpeed;
+            dashDirection = character.Direction; 
             character.AddListener((IReceiveMovement)this);
-            animRoutine = character.StartCoroutine(Animate());
-        }
 
-        public override void Update()
-        {
-            dashTime -= Time.deltaTime;
-            if (dashTime < 0)
-            {
-                character.rigid.velocity = Vector2.zero;
-            }
+            animRoutine = character.StartCoroutine(Animate());
+            countDownRountine = character.StartCoroutine(CountDown());
         }
 
         public override void Exit()
@@ -42,6 +37,8 @@ namespace Shinnii.StateMachine
             character.rigid.velocity = Vector2.zero;
             if (animRoutine != null)
                 character.StopCoroutine(animRoutine);
+            if (countDownRountine != null)
+                character.StopCoroutine(countDownRountine);
         }
 
         public override CharacterState GetNext()
@@ -54,6 +51,7 @@ namespace Shinnii.StateMachine
             }
             return null;
         }
+
         IEnumerator Animate()
         {
             animator.CrossFade(info.stateName, info.transitionDuration,
@@ -73,6 +71,19 @@ namespace Shinnii.StateMachine
                 nextBluePrint = machine.GetCurrentNode().GetNextStateFromPort("exit");
             if (nextBluePrint != null)
                 Finish();
+        }
+
+        private IEnumerator CountDown()
+        {
+            float time = 0.25f;
+            while (time > 0)
+            {
+                Vector3 newPos = character.transform.position + new Vector3(dashDirection.x, dashDirection.y, 0) * character.dashSpeed * 1 * Time.deltaTime;
+                character.rigid.MovePosition(newPos);
+                time -= Time.deltaTime;
+                yield return null; 
+            }
+            character.rigid.velocity = Vector2.zero;
         }
 
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)

@@ -26,6 +26,7 @@ namespace Shinnii.StateMachine
 
         public override void Exit()
         {
+            animator.SetFloat("MoveSpeed", 0);
             character.RemoveListener((IReceiveMovement)this);
             character.RemoveListener((IReceiveAttackEnter)this);
             character.RemoveListener((IReceiveDashEvent)this);
@@ -48,6 +49,7 @@ namespace Shinnii.StateMachine
             character.Rotate(direction);
             character.Move(power);
         }
+
         void IReceiveDashEvent.OnReceiveDashEvent()
         {
             if (character.IsDash) return;
