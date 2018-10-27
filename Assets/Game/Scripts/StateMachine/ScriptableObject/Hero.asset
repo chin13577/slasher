@@ -251,7 +251,7 @@ MonoBehaviour:
   exitTimeOnNextAttack: 0.9
   receiveInputTime:
     startTime: 0.33
-    exitTime: 0.6
+    exitTime: 0.809
   triggerEvents: []
   enter: {fileID: 0}
   exit: {fileID: 0}
@@ -318,7 +318,7 @@ MonoBehaviour:
   exitTimeOnNextAttack: 0.9
   receiveInputTime:
     startTime: 0.33
-    exitTime: 0.6
+    exitTime: 0.809
   triggerEvents: []
   enter: {fileID: 0}
   exit: {fileID: 0}

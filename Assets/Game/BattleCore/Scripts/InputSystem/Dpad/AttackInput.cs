@@ -15,7 +15,7 @@ namespace Shinnii.Controller
         {
             Direction = Vector2.zero;
             controller.OnReceiveAttackEnter();
-            image.color = new Color(1, 1, 1, 0.5f);
+            image.color = new Color(1, 1, 1, 0.8f);
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
