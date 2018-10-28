@@ -22,6 +22,8 @@ MonoBehaviour:
   - {fileID: 114185783352885504}
   - {fileID: 114191583561299192}
   - {fileID: 114425766190498392}
+  - {fileID: 114705868125433216}
+  - {fileID: 114172524734923856}
   startState: {fileID: 114815359407553228}
   anyState: {fileID: 114010493846488134}
 --- !u!114 &114010493846488134
@@ -36,7 +38,7 @@ MonoBehaviour:
   m_Name: Any
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -250, y: -250}
+  position: {x: -280, y: -344}
   ports:
     keys:
     - exit
@@ -45,7 +47,13 @@ MonoBehaviour:
       _node: {fileID: 114010493846488134}
       _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: enter
+        node: {fileID: 114705868125433216}
+        reroutePoints: []
+      - fieldName: enter
+        node: {fileID: 114172524734923856}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _dynamic: 0
@@ -106,6 +114,56 @@ MonoBehaviour:
     exitTime: 0.13
   enter: {fileID: 0}
   exit: {fileID: 0}
+--- !u!114 &114172524734923856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fec8013fa093f49b9bcfcc201a65a0, type: 3}
+  m_Name: Stunned Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: -344}
+  ports:
+    keys:
+    - enter
+    - exit
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114172524734923856}
+      _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: exit
+        node: {fileID: 114010493846488134}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 114172524734923856}
+      _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: enter
+        node: {fileID: 114177592193295352}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _dynamic: 0
+  info:
+    stateName: Stunned
+    transitionDuration: 0
+    animationOffset: 0
+    layerIndex: 0
+    hasExitTime: 0
+    exitTime: 0
+  immuneTo: -1
+  enter: {fileID: 0}
+  exit: {fileID: 0}
 --- !u!114 &114177592193295352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +208,12 @@ MonoBehaviour:
         reroutePoints: []
       - fieldName: exit
         node: {fileID: 114425766190498392}
+        reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 114705868125433216}
+        reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 114172524734923856}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -571,6 +635,56 @@ MonoBehaviour:
   enter: {fileID: 0}
   exit: {fileID: 0}
   onAttack: {fileID: 0}
+--- !u!114 &114705868125433216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7700e79f412671743bdd8b2daa2b7fd6, type: 3}
+  m_Name: Struggled Node
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: -472}
+  ports:
+    keys:
+    - enter
+    - exit
+    values:
+    - _fieldName: enter
+      _node: {fileID: 114705868125433216}
+      _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: exit
+        node: {fileID: 114010493846488134}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 114705868125433216}
+      _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: enter
+        node: {fileID: 114177592193295352}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _dynamic: 0
+  info:
+    stateName: Struggle
+    transitionDuration: 0
+    animationOffset: 0
+    layerIndex: 0
+    hasExitTime: 0
+    exitTime: 0
+  immuneTo: 1
+  enter: {fileID: 0}
+  exit: {fileID: 0}
 --- !u!114 &114815359407553228
 MonoBehaviour:
   m_ObjectHideFlags: 0

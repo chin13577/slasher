@@ -17,7 +17,7 @@ public class Fist : Weapon
                 {
                     if (damageable.GetTeam() == owner.team) continue;
                     float damage = owner.status.attack ;
-                    damageable.TakeDamage(new DamageData() { damage = damage });
+                    damageable.TakeDamage(new DamageData() { damage = damage ,interruptedType = InterruptedType.Struggle});
                 }
             }
         }

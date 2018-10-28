@@ -18,7 +18,9 @@ namespace Shinnii.StateMachine
         private CharacterState currentState;
         private Dictionary<StateType, CharacterState> stateDict = new Dictionary<StateType, CharacterState>();
 
-
+        #region BlackDoor
+        public DamageData currentDamageData;
+        #endregion
 
         public CharacterState GetState(StateType type)
         {
@@ -94,6 +96,10 @@ namespace Shinnii.StateMachine
                     return new StartState(graph, this);
                 case StateType.Stable:
                     return new StableState(graph, this);
+                case StateType.Struggle:
+                    return new StruggledState(graph, this);
+                case StateType.Stun:
+                    return new StunnedState(graph, this);
                 case StateType.WeaponBranch:
                     return new WeaponBranchState(graph, this);
                 default:
@@ -120,7 +126,7 @@ namespace Shinnii.StateMachine
 
         public void JumpToAnyState(StateType state)
         {
-            Node node = anyNode.FindConnectedNode(state);
+            Node node = anyNode.FindConnectedNodeByStateType(state);
             if (node != null)
             {
                 SetCurrentNode(node);
@@ -131,19 +137,19 @@ namespace Shinnii.StateMachine
             }
         }
 
-        public void OnInturrupted(/*DamageData damageData*/)
+        public void OnInturrupted(DamageData damageData)
         {
-            // if (damageData.interruptedType == InterruptedType.None)
-            //     return;
+            if (damageData.interruptedType == InterruptedType.None)
+                return;
 
-            // this.currentDamageData = damageData;
-            // StateType targetStateType = 0;
-            // if (damageData.interruptedType == InterruptedType.Struggle)
-            //     targetStateType = StateType.Struggle;
-            // else if (damageData.interruptedType == InterruptedType.Stun)
-            //     targetStateType = StateType.Stun;
+            this.currentDamageData = damageData;
+            StateType targetStateType = 0;
+            if (damageData.interruptedType == InterruptedType.Struggle)
+                targetStateType = StateType.Struggle;
+            else if (damageData.interruptedType == InterruptedType.Stun)
+                targetStateType = StateType.Stun;
 
-            // JumpToAnyState(targetStateType);
+            JumpToAnyState(targetStateType);
         }
 
     }

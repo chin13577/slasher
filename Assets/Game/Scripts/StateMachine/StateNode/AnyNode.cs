@@ -11,7 +11,7 @@ namespace Shinnii.StateMachine
         public override StateType StateType { get { return StateType.Any; } }
         [Output] public Node exit;
 
-        public Node FindConnectedNode(StateType target)
+        public Node FindConnectedNodeByStateType(StateType target)
         {
             NodePort exitPort = GetOutputPort("exit");
 

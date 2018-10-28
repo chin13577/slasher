@@ -6,5 +6,6 @@ using UnityEngine;
 [System.Flags]
 public enum ImmuneType
 {
-    Struggle = 1, Stun = 2
+    Struggle = 0x1,
+    Stun = 0x2
 }
