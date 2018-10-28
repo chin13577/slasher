@@ -100,7 +100,7 @@ namespace Shinnii.StateMachine
         {
             animator.SetFloat("MoveSpeed", power);
             character.Rotate(direction);
-            character.Move(power);
+            character.Move(power/3);
         }
 
         void IReceiveAttackEnter.OnReceiveAttackEnter()
