@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: Attack Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 872, y: -168}
+  position: {x: 888, y: -168}
   ports:
     keys:
     - enter
@@ -318,7 +318,7 @@ MonoBehaviour:
     exitTime: 0.809
   triggerEvents:
   - stateEvent: 3
-    triggerNormalizeTime: 0.5
+    triggerNormalizeTime: 0.9
     param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
@@ -388,7 +388,7 @@ MonoBehaviour:
     exitTime: 0.809
   triggerEvents:
   - stateEvent: 3
-    triggerNormalizeTime: 0.5
+    triggerNormalizeTime: 0.9
     param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
@@ -580,7 +580,7 @@ MonoBehaviour:
   m_Name: Attack Node
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1416, y: -136}
+  position: {x: 1480, y: -152}
   ports:
     keys:
     - enter
@@ -624,14 +624,20 @@ MonoBehaviour:
     layerIndex: 0
     hasExitTime: 1
     exitTime: 1
-  exitTimeOnNextAttack: 0.9
+  exitTimeOnNextAttack: 1
   receiveInputTime:
     startTime: 0.33
     exitTime: 0.6
   triggerEvents:
   - stateEvent: 3
+    triggerNormalizeTime: 0.3
+    param: 1
+  - stateEvent: 3
     triggerNormalizeTime: 0.5
-    param: 0
+    param: 1
+  - stateEvent: 3
+    triggerNormalizeTime: 0.7
+    param: 1
   enter: {fileID: 0}
   exit: {fileID: 0}
   onAttack: {fileID: 0}
@@ -682,7 +688,7 @@ MonoBehaviour:
     layerIndex: 0
     hasExitTime: 0
     exitTime: 0
-  immuneTo: 1
+  immuneTo: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
 --- !u!114 &114815359407553228

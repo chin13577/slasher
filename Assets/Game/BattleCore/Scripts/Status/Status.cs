@@ -8,7 +8,7 @@ public class Status
     public float attack;
     public float defense;
     public float speed;
-    internal double ImmuneTime;
+    public float ImmuneTime;
 
     public Status()
     {

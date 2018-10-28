@@ -17,7 +17,7 @@ namespace Shinnii.StateMachine
         public override void Enter()
         {
             nextBluePrint = null;
-            character.IsStruggle = true;
+            character.IsStruggle = true; 
 
             this.info = machine.GetCurrentNode().info;
             character.AddListener((IReceiveMovement)this);
@@ -69,10 +69,10 @@ namespace Shinnii.StateMachine
         }
 
         void IReceiveDamageEvent.OnTakeDamage(DamageData damageData)
-        {
+        { 
             if ((DateTime.Now - character.lastHit).TotalSeconds <= character.status.ImmuneTime) return;
             character.lastHit = DateTime.Now;
-            character.DealDamage(damageData.damage);
+            character.DealDamage(damageData.damage); 
             if (character.IsDead)
             {
                 machine.JumpToAnyState(StateType.Dead);
@@ -80,20 +80,22 @@ namespace Shinnii.StateMachine
             else
             {
                 if (damageData.interruptedType != InterruptedType.None)
-                {
+                { 
                     StruggledNode struggledNode = machine.GetCurrentNode() as StruggledNode;
                     ImmuneType immuneTo = struggledNode.immuneTo;
                     bool immuneSuccess = false;
                     foreach (ImmuneType type in System.Enum.GetValues(typeof(ImmuneType)))
                     {
                         if (immuneTo.HasFlag(type))
-                        {
+                        { 
                             if (damageData.interruptedType.ToString() == type.ToString())
                                 immuneSuccess = true;
                         }
-                    }
+                    } 
                     if (!immuneSuccess)
+                    { 
                         machine.OnInturrupted(damageData);
+                    } 
                 }
             }
         }

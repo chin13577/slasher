@@ -87,7 +87,7 @@ namespace Shinnii.StateMachine
         {
             for (int i = 0; i < triggerEvents.Count; i++)
             {
-                if (forceExcicute || animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= triggerEvents[i].triggerNormalizeTime)
+                if (forceExcicute || weaponAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= triggerEvents[i].triggerNormalizeTime)
                 {
                     machine.OnAnimationEventTrigger(triggerEvents[i].stateEvent, triggerEvents[i].param);
                     triggerEvents.Remove(triggerEvents[i]);

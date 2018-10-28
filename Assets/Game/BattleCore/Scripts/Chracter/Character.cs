@@ -47,6 +47,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         UpdateSprite(Direction);
         UpdateDirectionSprite(Direction);
         rigid.isKinematic = true;
+        lastHit = DateTime.Now;
         if (weapon != null)
             weapon.Initialize(this);
     }

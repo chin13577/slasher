@@ -608,16 +608,17 @@ MonoBehaviour:
   weapon: {fileID: 114953585869559720}
   handTransform: {fileID: 4522571667398042}
   directionTransform: {fileID: 4573456121651776}
-  team: 0
+  team: 1
   maskEnemy:
     serializedVersion: 2
     m_Bits: 1
   status:
     hp: 2000
-    maxHp: 10
+    maxHp: 2000
     attack: 10
     defense: 5
     speed: 3
+    ImmuneTime: 0.5
   graph: {fileID: 11400000, guid: 170d0a92c42a31849b21d676591d6090, type: 2}
 --- !u!114 &114953585869559720
 MonoBehaviour:
