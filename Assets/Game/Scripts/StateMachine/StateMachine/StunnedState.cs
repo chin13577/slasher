@@ -61,7 +61,7 @@ namespace Shinnii.StateMachine
         {
             if ((DateTime.Now - character.lastHit).TotalSeconds <= character.status.ImmuneTime) return;
             character.lastHit = DateTime.Now;
-            character.DealDamage(damageData.damage);
+            character.DealDamage(damageData);
             if (character.IsDead)
             {
                 machine.JumpToAnyState(StateType.Dead);

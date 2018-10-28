@@ -9,7 +9,7 @@ public class ObjectPoolManager : MonoBehaviour
     public struct ObjectPool
     {
         public int id;
-        public int startAmount;
+        public int startSpawnCount;
         public GameObject prefab;
     }
 
@@ -35,10 +35,9 @@ public class ObjectPoolManager : MonoBehaviour
     {
         for (int i = 0; i < poolPrefabs.Length; i++)
         {
-            for (int j = 0; j < poolPrefabs[i].startAmount; j++)
+            for (int j = 0; j < poolPrefabs[i].startSpawnCount; j++)
             {
-                var obj = Instantiate(poolPrefabs[i].prefab);
-                obj.SetActive(false);
+                var obj = CreateObject(poolPrefabs[i].id);
                 poolDict[i].Add(obj);
             }
         }
@@ -46,8 +45,8 @@ public class ObjectPoolManager : MonoBehaviour
 
     public GameObject GetObject(int key)
     {
-        var result = poolDict[key].Find(obj => obj.activeSelf == false);
-        if (result != null)
+        var result = poolDict[key].Find(obj => obj.activeInHierarchy == false); 
+        if (result == null)
         {
             result = CreateObject(key);
             poolDict[key].Add(result);

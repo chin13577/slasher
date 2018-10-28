@@ -1,9 +1,10 @@
-﻿ 
+﻿using UnityEngine;
 
 public struct DamageData
 {
     public float damage;
-     public InterruptedType interruptedType;
+    public Vector2 damageDirection;
+    public InterruptedType interruptedType;
     /// <summary>
     /// Stun or Freeze duration.
     /// </summary>

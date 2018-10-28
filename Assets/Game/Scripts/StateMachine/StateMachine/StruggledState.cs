@@ -23,6 +23,7 @@ namespace Shinnii.StateMachine
             character.AddListener((IReceiveMovement)this);
             character.AddListener((IReceiveDamageEvent)this);
             animRoutine = character.StartCoroutine(Animate());
+            character.Rotate(machine.currentDamageData.damageDirection * -1f);
         }
 
         public override void Exit()
@@ -72,7 +73,7 @@ namespace Shinnii.StateMachine
         { 
             if ((DateTime.Now - character.lastHit).TotalSeconds <= character.status.ImmuneTime) return;
             character.lastHit = DateTime.Now;
-            character.DealDamage(damageData.damage); 
+            character.DealDamage(damageData); 
             if (character.IsDead)
             {
                 machine.JumpToAnyState(StateType.Dead);
