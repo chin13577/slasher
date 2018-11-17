@@ -210,6 +210,12 @@ MonoBehaviour:
         node: {fileID: 114425766190498392}
         reroutePoints: []
       - fieldName: exit
+        node: {fileID: 0}
+        reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 0}
+        reroutePoints: []
+      - fieldName: exit
         node: {fileID: 114705868125433216}
         reroutePoints: []
       - fieldName: exit
@@ -318,7 +324,7 @@ MonoBehaviour:
     exitTime: 0.809
   triggerEvents:
   - stateEvent: 3
-    triggerNormalizeTime: 0.9
+    triggerNormalizeTime: 0.3
     param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}
@@ -388,7 +394,7 @@ MonoBehaviour:
     exitTime: 0.809
   triggerEvents:
   - stateEvent: 3
-    triggerNormalizeTime: 0.9
+    triggerNormalizeTime: 0.3
     param: 0
   enter: {fileID: 0}
   exit: {fileID: 0}

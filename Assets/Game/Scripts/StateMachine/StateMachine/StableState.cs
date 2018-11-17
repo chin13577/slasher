@@ -48,7 +48,11 @@ namespace Shinnii.StateMachine
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
         {
             animator.SetFloat("MoveSpeed", power);
-            character.Rotate(direction);
+            character.Direction = direction;
+            if (!character.IsTracking)
+            {
+                character.UpdateAttackDirection(direction);
+            }
             character.Move(power);
         }
 

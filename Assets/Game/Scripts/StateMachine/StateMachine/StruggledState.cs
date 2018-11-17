@@ -23,7 +23,7 @@ namespace Shinnii.StateMachine
             character.AddListener((IReceiveMovement)this);
             character.AddListener((IReceiveDamageEvent)this);
             animRoutine = character.StartCoroutine(Animate());
-            character.Rotate(machine.currentDamageData.damageDirection * -1f);
+            character.UpdateAttackDirection(machine.currentDamageData.damageDirection * -1f); 
         }
 
         public override void Exit()
@@ -65,7 +65,8 @@ namespace Shinnii.StateMachine
         {
             power = power / 2;
             animator.SetFloat("MoveSpeed", power);
-            character.Rotate(direction);
+            character.Direction = direction;
+            character.UpdateAttackDirection(direction);
             character.Move(power);
         }
 

@@ -21,11 +21,16 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     public Status status = new Status();
     [SerializeField] private StateMachineGraph graph;
     private StateMachine machine;
+    public SensorController sensor;
+    [HideInInspector]
     public GameManager manager;
 
+    public GameObject TrackingTarget { get; set; }
     private Vector2 _direction = new Vector2(1, 0);
     public Vector2 Direction { get { return _direction; } set { _direction = value; } }
-    public Vector3 AttackPosition { get { return (transform.position.ToVector2() + Direction * 0.5f); } }
+    private Vector2 _attackDirection = new Vector2(1, 0);
+    public Vector2 AttackDirection { get { return _attackDirection; } set { _attackDirection = value; } }
+    public Vector3 AttackPosition { get { return (transform.position.ToVector2() + AttackDirection * 0.5f); } }
     public float currentPower { get; set; }
 
     public List<IReceiveMovement> receiveMovements = new List<IReceiveMovement>();
@@ -35,17 +40,20 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     public List<IReceiveAttackDrag> receiveAttackDrags = new List<IReceiveAttackDrag>();
     public List<IReceiveAttackUp> receiveAttackUps = new List<IReceiveAttackUp>();
 
-    public float dashSpeed { get { return status.speed * 3; } }
+    public float dashSpeed { get { return status.speed * 2.5f; } }
     public bool IsDash { get; set; }
+    public bool IsAttacking { get; set; }
     public bool IsStunned { get; set; }
     public DateTime lastHit { get; set; }
     public bool IsDead { get { return status.hp <= 0; } }
-    public bool IsStruggle { get; internal set; }
+    public bool IsStruggle { get; set; }
+    public bool IsTracking { get; set; }
 
     void Awake()
     {
-        manager = GameManager.instance;
+        manager = GameManager.Instance;
         machine = new StateMachine(graph, this);
+        sensor.Initialize(this);
         UpdateSprite(Direction);
         UpdateDirectionSprite(Direction);
         rigid.isKinematic = true;
@@ -57,24 +65,17 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     void Update()
     {
         machine.Update();
-        rigid.isKinematic = currentPower == 0 && !IsDash;
-        if (Input.GetKeyDown(KeyCode.A))
+        rigid.isKinematic = currentPower == 0 && !IsDash && !IsAttacking;
+
+        if (TrackingTarget == null)
+            IsTracking = false;
+        else
         {
-            ((IDamageable)this).TakeDamage(new DamageData()
-            {
-                damage = 10f,
-                interruptedType = InterruptedType.Struggle
-            });
+            IsTracking = true;
+            Vector2 direction = (TrackingTarget.transform.position - transform.position).ToVector2().normalized;
+            UpdateAttackDirection(direction);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            ((IDamageable)this).TakeDamage(new DamageData()
-            {
-                damage = 10f,
-                interruptedType = InterruptedType.Stun,
-                interruptedDuration = 2f
-            });
-        }
+
     }
 
     public void DealDamage(DamageData data)
@@ -162,12 +163,12 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
 
     #endregion
 
-    public void Rotate(Vector2 direction)
+    public void UpdateAttackDirection(Vector2 direction)
     {
-        Direction = direction;
-        UpdateSprite(Direction);
-        UpdateDirectionSprite(Direction);
-        UpdateHandTransformRotation(Direction);
+        AttackDirection = direction;
+        UpdateSprite(direction);
+        UpdateDirectionSprite(direction);
+        UpdateHandTransformRotation(direction);
     }
     public void Move(float power)
     {

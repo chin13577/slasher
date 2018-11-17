@@ -23,7 +23,7 @@ namespace Shinnii.StateMachine
             nextBluePrint = null;
             this.info = machine.GetCurrentNode().info;
             character.IsDash = true;
-            dashDirection = character.Direction; 
+            dashDirection = character.Direction;
             character.AddListener((IReceiveMovement)this);
 
             animRoutine = character.StartCoroutine(Animate());
@@ -75,20 +75,20 @@ namespace Shinnii.StateMachine
 
         private IEnumerator CountDown()
         {
-            float time = 0.25f;
+            float time = 0.15f;
             while (time > 0)
             {
                 Vector3 newPos = character.transform.position + new Vector3(dashDirection.x, dashDirection.y, 0) * character.dashSpeed * 1 * Time.deltaTime;
                 character.rigid.MovePosition(newPos);
                 time -= Time.deltaTime;
-                yield return null; 
+                yield return null;
             }
             character.rigid.velocity = Vector2.zero;
         }
 
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
         {
-            character.Rotate(direction);
+            character.Direction = direction;
         }
     }
 }

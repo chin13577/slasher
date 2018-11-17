@@ -14,6 +14,7 @@ namespace Shinnii.StateMachine
         private Node nextBluePrint;
         private AttackNode currentAttackNode;
         private Coroutine animRoutine;
+        private Coroutine dashRoutine;
         private Animator weaponAnimator;
         private bool isContinueAttack;
         public AttackState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
@@ -33,14 +34,23 @@ namespace Shinnii.StateMachine
             character.AddListener((IReceiveAttackEnter)this);
 
             animRoutine = character.StartCoroutine(Animate());
+            dashRoutine = character.StartCoroutine(Dash());
+
+            if (character.IsTracking)
+            {
+                character.UpdateAttackDirection(character.AttackDirection);
+            }
         }
 
         public override void Exit()
         {
             weaponAnimator.CrossFade("Idle", 0.1f, 0, 0);
+            character.IsAttacking = false;
             isContinueAttack = false;
             if (animRoutine != null)
                 character.StopCoroutine(animRoutine);
+            if (dashRoutine != null)
+                character.StopCoroutine(dashRoutine);
 
             character.RemoveListener((IReceiveMovement)this);
             character.RemoveListener((IReceiveAttackEnter)this);
@@ -57,6 +67,21 @@ namespace Shinnii.StateMachine
             return null;
         }
 
+        IEnumerator Dash()
+        {
+            float duration = 0.12f;
+            float distance = (character.AttackPosition - character.transform.position).magnitude;
+            float velocity = distance / duration;
+            character.IsAttacking = true;
+            while (duration > 0)
+            {
+                Vector2 newPos = character.transform.position.ToVector2() + character.AttackDirection * velocity * Time.deltaTime;
+                character.rigid.MovePosition(newPos);
+                duration -= Time.deltaTime;
+                yield return null;
+            }
+            character.IsAttacking = false;
+        }
         IEnumerator Animate()
         {
             weaponAnimator.CrossFade(info.stateName, info.transitionDuration,
@@ -99,8 +124,8 @@ namespace Shinnii.StateMachine
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
         {
             animator.SetFloat("MoveSpeed", power);
-            character.Rotate(direction);
-            character.Move(power/3);
+            character.Direction = direction;
+            character.Move(power / 2.5f);
         }
 
         void IReceiveAttackEnter.OnReceiveAttackEnter()
