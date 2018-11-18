@@ -40,7 +40,6 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     public List<IReceiveAttackDrag> receiveAttackDrags = new List<IReceiveAttackDrag>();
     public List<IReceiveAttackUp> receiveAttackUps = new List<IReceiveAttackUp>();
 
-    public float dashSpeed { get { return status.speed * 2.5f; } }
     public bool IsDash { get; set; }
     public bool IsAttacking { get; set; }
     public bool IsStunned { get; set; }

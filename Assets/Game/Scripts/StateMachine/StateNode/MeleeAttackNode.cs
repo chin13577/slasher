@@ -6,10 +6,10 @@ using XNode;
 
 namespace Shinnii.StateMachine
 {
-    [CreateNodeMenu("Node/AttackNode")]
-    public class AttackNode : Node
+    [CreateNodeMenu("Node/Attack/MeleeAttackNode")]
+    public class MeleeAttackNode : Node
     {
-        public override StateType StateType { get { return StateType.Attack; } }
+        public override StateType StateType { get { return StateType.MeleeAttack; } }
         public float exitTimeOnNextAttack;
         public ReceiveInputTime receiveInputTime;
         public List<TriggerEvent> triggerEvents = new List<TriggerEvent>();

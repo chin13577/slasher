@@ -14,7 +14,6 @@ namespace Shinnii.StateMachine
         private Coroutine animRoutine;
         private Coroutine countDownRountine;
 
-        private Vector2 dashDirection;
         public DashState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
         {
         }
@@ -23,7 +22,6 @@ namespace Shinnii.StateMachine
             nextBluePrint = null;
             this.info = machine.GetCurrentNode().info;
             character.IsDash = true;
-            dashDirection = character.Direction;
             character.AddListener((IReceiveMovement)this);
 
             animRoutine = character.StartCoroutine(Animate());
@@ -75,15 +73,18 @@ namespace Shinnii.StateMachine
 
         private IEnumerator CountDown()
         {
-            float time = 0.15f;
-            while (time > 0)
+            float duration = 0.3f;
+            float moveTime = 0;
+            float normalizedTime = 0;
+            Vector2 targetPos = character.transform.position.ToVector2() + character.Direction * 1.5f;
+            do
             {
-                Vector3 newPos = character.transform.position + new Vector3(dashDirection.x, dashDirection.y, 0) * character.dashSpeed * 1 * Time.deltaTime;
+                normalizedTime = moveTime / duration;
+                Vector2 newPos = Vector2.Lerp(character.transform.position, targetPos, normalizedTime);
                 character.rigid.MovePosition(newPos);
-                time -= Time.deltaTime;
                 yield return null;
-            }
-            character.rigid.velocity = Vector2.zero;
+                moveTime += Time.deltaTime;
+            } while (normalizedTime <= 1);
         }
 
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)

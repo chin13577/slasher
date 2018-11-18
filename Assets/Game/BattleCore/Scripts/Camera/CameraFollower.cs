@@ -16,7 +16,7 @@ public class CameraFollower : MonoBehaviour
         this.target = target;
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
         if (target != null)
             position = target.position;

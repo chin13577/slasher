@@ -6,18 +6,18 @@ using Shinnii.Controller;
 
 namespace Shinnii.StateMachine
 {
-    public class AttackState : CharacterState, IReceiveMovement, IReceiveAttackEnter//, IReceiveDamageEvent, IReceiveAttackEvent, IReceiveMovementEvent, IReceiveSkillEvent
+    public class MeleeAttackState : CharacterState, IReceiveMovement, IReceiveAttackEnter//, IReceiveDamageEvent, IReceiveAttackEvent, IReceiveMovementEvent, IReceiveSkillEvent
     {
         public ReceiveInputTime receiveInputTime;
         public List<TriggerEvent> triggerEvents;
 
         private Node nextBluePrint;
-        private AttackNode currentAttackNode;
+        private MeleeAttackNode currentAttackNode;
         private Coroutine animRoutine;
         private Coroutine dashRoutine;
         private Animator weaponAnimator;
         private bool isContinueAttack;
-        public AttackState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
+        public MeleeAttackState(StateMachineGraph graph, StateMachine machine) : base(graph, machine)
         {
             weaponAnimator = character.weapon.animator;
         }
@@ -25,7 +25,7 @@ namespace Shinnii.StateMachine
         public override void Enter()
         {
             nextBluePrint = null;
-            currentAttackNode = machine.GetCurrentNode() as AttackNode;
+            currentAttackNode = machine.GetCurrentNode() as MeleeAttackNode;
             this.info = currentAttackNode.info;
             this.receiveInputTime = currentAttackNode.receiveInputTime;
             this.triggerEvents = new List<TriggerEvent>(currentAttackNode.triggerEvents);
@@ -34,7 +34,8 @@ namespace Shinnii.StateMachine
             character.AddListener((IReceiveAttackEnter)this);
 
             animRoutine = character.StartCoroutine(Animate());
-            dashRoutine = character.StartCoroutine(Dash());
+            dashRoutine = character.StartCoroutine(AttackDash());
+
 
             if (character.IsTracking)
             {
@@ -67,19 +68,21 @@ namespace Shinnii.StateMachine
             return null;
         }
 
-        IEnumerator Dash()
+        IEnumerator AttackDash()
         {
-            float duration = 0.12f;
-            float distance = (character.AttackPosition - character.transform.position).magnitude;
-            float velocity = distance / duration;
             character.IsAttacking = true;
-            while (duration > 0)
+            float duration = 0.35f;
+            float moveTime = 0;
+            float normalizedTime = 0;
+            Vector2 targetPos = character.transform.position.ToVector2() + character.AttackDirection * 0.8f;
+            do
             {
-                Vector2 newPos = character.transform.position.ToVector2() + character.AttackDirection * velocity * Time.deltaTime;
+                normalizedTime = moveTime / duration;
+                Vector2 newPos = Vector2.Lerp(character.transform.position, targetPos, normalizedTime);
                 character.rigid.MovePosition(newPos);
-                duration -= Time.deltaTime;
                 yield return null;
-            }
+                moveTime += Time.deltaTime;
+            } while (normalizedTime <= 1);
             character.IsAttacking = false;
         }
         IEnumerator Animate()

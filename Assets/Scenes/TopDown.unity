@@ -5995,7 +5995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fbc6e6deedbe347b6d58ee70e3d745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 1
+  smoothTime: 5.04
   target: {fileID: 0}
 --- !u!1001 &2087761624
 Prefab:

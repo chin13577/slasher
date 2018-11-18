@@ -15,15 +15,15 @@ MonoBehaviour:
   - {fileID: 114815359407553228}
   - {fileID: 114010493846488134}
   - {fileID: 114177592193295352}
-  - {fileID: 114314326465882396}
-  - {fileID: 114866384939437822}
   - {fileID: 114029590426228800}
   - {fileID: 114246347223466336}
-  - {fileID: 114185783352885504}
-  - {fileID: 114191583561299192}
-  - {fileID: 114425766190498392}
   - {fileID: 114705868125433216}
   - {fileID: 114172524734923856}
+  - {fileID: 114425766190498392}
+  - {fileID: 114191583561299192}
+  - {fileID: 114185783352885504}
+  - {fileID: 114866384939437822}
+  - {fileID: 114314326465882396}
   startState: {fileID: 114815359407553228}
   anyState: {fileID: 114010493846488134}
 --- !u!114 &114010493846488134
@@ -192,22 +192,22 @@ MonoBehaviour:
         node: {fileID: 114815359407553228}
         reroutePoints: []
       - fieldName: exit
-        node: {fileID: 114314326465882396}
+        node: {fileID: 0}
         reroutePoints: []
       - fieldName: exit
-        node: {fileID: 114866384939437822}
+        node: {fileID: 0}
         reroutePoints: []
       - fieldName: exit
         node: {fileID: 114029590426228800}
         reroutePoints: []
       - fieldName: exit
-        node: {fileID: 114185783352885504}
+        node: {fileID: 0}
         reroutePoints: []
       - fieldName: exit
-        node: {fileID: 114191583561299192}
+        node: {fileID: 0}
         reroutePoints: []
       - fieldName: exit
-        node: {fileID: 114425766190498392}
+        node: {fileID: 0}
         reroutePoints: []
       - fieldName: exit
         node: {fileID: 0}
@@ -220,6 +220,18 @@ MonoBehaviour:
         reroutePoints: []
       - fieldName: exit
         node: {fileID: 114172524734923856}
+        reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 114185783352885504}
+        reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 114314326465882396}
+        reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 114191583561299192}
+        reroutePoints: []
+      - fieldName: exit
+        node: {fileID: 114866384939437822}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -525,9 +537,6 @@ MonoBehaviour:
       _typeQualifiedName: Shinnii.StateMachine.Node, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: sword
-        node: {fileID: 114246347223466336}
-        reroutePoints: []
       - fieldName: Sword
         node: {fileID: 114246347223466336}
         reroutePoints: []

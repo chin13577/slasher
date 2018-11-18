@@ -88,8 +88,8 @@ namespace Shinnii.StateMachine
             {
                 case StateType.Any:
                     return null;
-                case StateType.Attack:
-                    return new AttackState(graph, this);
+                case StateType.MeleeAttack:
+                    return new MeleeAttackState(graph, this);
                 case StateType.Dash:
                     return new DashState(graph, this);
                 case StateType.Start:
