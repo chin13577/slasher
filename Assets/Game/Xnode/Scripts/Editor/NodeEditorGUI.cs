@@ -11,6 +11,8 @@ namespace XNodeEditor {
         private List<UnityEngine.Object> selectionCache;
         private List<XNode.Node> culledNodes;
         private int topPadding { get { return isDocked() ? 19 : 22; } }
+        /// <summary> Executed after all other window GUI. Useful if Zoom is ruining your day. Automatically resets after being run.</summary>
+        public event Action onLateGUI;
 
         private void OnGUI() {
             Event e = Event.current;
@@ -28,6 +30,12 @@ namespace XNodeEditor {
             DrawSelectionBox();
             DrawTooltip();
             graphEditor.OnGUI();
+
+            // Run and reset onLateGUI
+            if (onLateGUI != null) {
+                onLateGUI();
+                onLateGUI = null;
+            }
 
             GUI.matrix = m;
         }
@@ -348,25 +356,26 @@ namespace XNodeEditor {
                 bool selected = selectionCache.Contains(graph.nodes[n]);
 
                 if (selected) {
-                    GUIStyle style = new GUIStyle(NodeEditorResources.styles.nodeBody);
+                    GUIStyle style = new GUIStyle(nodeEditor.GetBodyStyle());
                     GUIStyle highlightStyle = new GUIStyle(NodeEditorResources.styles.nodeHighlight);
                     highlightStyle.padding = style.padding;
                     style.padding = new RectOffset();
                     GUI.color = nodeEditor.GetTint();
-                    GUILayout.BeginVertical(new GUIStyle(style));
+                    GUILayout.BeginVertical(style);
                     GUI.color = NodeEditorPreferences.GetSettings().highlightColor;
                     GUILayout.BeginVertical(new GUIStyle(highlightStyle));
                 } else {
-                    GUIStyle style = NodeEditorResources.styles.nodeBody;
+                    GUIStyle style = new GUIStyle(nodeEditor.GetBodyStyle());
                     GUI.color = nodeEditor.GetTint();
-                    GUILayout.BeginVertical(new GUIStyle(style));
+                    GUILayout.BeginVertical(style);
                 }
 
                 GUI.color = guiColor;
                 EditorGUI.BeginChangeCheck();
 
                 //Draw node contents
-                nodeEditor.OnNodeGUI();
+                nodeEditor.OnHeaderGUI();
+                nodeEditor.OnBodyGUI();
 
                 //If user changed a value, notify other scripts through onUpdateNode
                 if (EditorGUI.EndChangeCheck()) {

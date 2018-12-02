@@ -22,7 +22,9 @@ public class CameraFollower : MonoBehaviour
             position = target.position;
         else
             position = transform.position;
-        transform.position = Vector3.SmoothDamp(transform.position, position, ref velocityPosition, smoothTime * Time.unscaledDeltaTime);
+        transform.position = position;
+        //transform.position = Vector3.Lerp(position, this.transform.position, Time.deltaTime * smoothTime);
+        // transform.position = Vector3.SmoothDamp(transform.position, position, ref velocityPosition, smoothTime * Time.unscaledDeltaTime);
 
     }
 }

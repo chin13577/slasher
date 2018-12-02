@@ -13,26 +13,28 @@ namespace XNodeEditor {
         /// <summary> Fires every whenever a node was modified through the editor </summary>
         public static Action<XNode.Node> onUpdateNode;
         public static Dictionary<XNode.NodePort, Vector2> portPositions;
-        public static int renaming;
-
-        /// <summary> Draws the node GUI.</summary>
-        /// <param name="portPositions">Port handle positions need to be returned to the NodeEditorWindow </param>
-        public void OnNodeGUI() {
-            OnHeaderGUI();
-            OnBodyGUI();
-        }
+        public int renaming;
 
         public virtual void OnHeaderGUI() {
             string title = target.name;
-            if (renaming != 0 && Selection.Contains(target)) {
-                int controlID = EditorGUIUtility.GetControlID(FocusType.Keyboard) + 1;
-                if (renaming == 1) {
-                    EditorGUIUtility.keyboardControl = controlID;
-                    EditorGUIUtility.editingTextField = true;
-                    renaming = 2;
+            if (renaming != 0) { 
+                if (Selection.Contains(target)) {
+                    int controlID = EditorGUIUtility.GetControlID(FocusType.Keyboard) + 1;
+                    if (renaming == 1) {
+                        EditorGUIUtility.keyboardControl = controlID;
+                        EditorGUIUtility.editingTextField = true;
+                        renaming = 2;
+                    }
+                    target.name = EditorGUILayout.TextField(target.name, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+                    if (!EditorGUIUtility.editingTextField) {
+                        Debug.Log("Finish renaming");
+                        Rename(target.name);
+                        renaming = 0;
+                    }
                 }
-                target.name = EditorGUILayout.TextField(target.name, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
-                if (!EditorGUIUtility.editingTextField) {
+                else {
+                    // Selection changed, so stop renaming.
+                    GUILayout.Label(title, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
                     Rename(target.name);
                     renaming = 0;
                 }
@@ -75,6 +77,10 @@ namespace XNodeEditor {
             else return Color.white;
         }
 
+        public virtual GUIStyle GetBodyStyle() {
+            return NodeEditorResources.styles.nodeBody;
+        }
+
         public void InitiateRename() {
             renaming = 1;
         }
@@ -90,7 +96,6 @@ namespace XNodeEditor {
             private Type inspectedType;
             /// <summary> Tells a NodeEditor which Node type it is an editor for </summary>
             /// <param name="inspectedType">Type that this editor can edit</param>
-            /// <param name="contextMenuName">Path to the node</param>
             public CustomNodeEditorAttribute(Type inspectedType) {
                 this.inspectedType = inspectedType;
             }

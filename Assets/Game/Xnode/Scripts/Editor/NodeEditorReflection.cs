@@ -71,16 +71,6 @@ namespace XNodeEditor {
             return types.ToArray();
         }
 
-        public static object ObjectFromType(Type type) {
-            return Activator.CreateInstance(type);
-        }
-
-        public static object ObjectFromFieldName(object obj, string fieldName) {
-            Type type = obj.GetType();
-            FieldInfo fieldInfo = type.GetField(fieldName);
-            return fieldInfo.GetValue(obj);
-        }
-
         public static KeyValuePair<ContextMenu, MethodInfo>[] GetContextMenuMethods(object obj) {
             Type type = obj.GetType();
             MethodInfo[] methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
@@ -111,6 +101,14 @@ namespace XNodeEditor {
         /// <summary> Very crude. Uses a lot of reflection. </summary>
         public static void OpenPreferences() {
             try {
+#if UNITY_2018_3_OR_NEWER
+                foreach (SettingsProvider settingsProvider in SettingsService.FetchSettingsProviders()) {
+                    if (settingsProvider.name == "Node Editor") {
+                        EditorPrefs.SetString("SettingsWindow_Preferences_current_provider", settingsProvider.settingsPath);
+                        EditorApplication.ExecuteMenuItem("Edit/Preferences...");
+                    }
+                }
+#else
                 //Open preferences window
                 Assembly assembly = Assembly.GetAssembly(typeof(UnityEditor.EditorWindow));
                 Type type = assembly.GetType("UnityEditor.PreferencesWindow");
@@ -142,6 +140,7 @@ namespace XNodeEditor {
                         return;
                     }
                 }
+#endif
             } catch (Exception e) {
                 Debug.LogError(e);
                 Debug.LogWarning("Unity has changed around internally. Can't open properties through reflection. Please contact xNode developer and supply unity version number.");
