@@ -15,6 +15,7 @@ namespace Shinnii.Senses
         private Character character;
         private List<GameObject> gameObjects = new List<GameObject>();
 
+        private GameObject target;
         public override void Initialize(SensorController controller)
         {
             base.controller = controller;
@@ -24,7 +25,13 @@ namespace Shinnii.Senses
         }
         public override void OnUpdate()
         {
-            character.TrackingTarget = FindTrackingObject();
+            var obj = FindTrackingObject();
+            if (target != obj)
+            {
+                target = obj;
+                character.TrackingTarget = FindTrackingObject();
+                controller.ObserveChange(obj);
+            }
         }
 
         private GameObject FindTrackingObject()
@@ -78,15 +85,13 @@ namespace Shinnii.Senses
         private void OnColliderEnter(Collider2D other)
         {
             if (gameObjects.Contains(other.gameObject)) return;
-            gameObjects.Add(other.gameObject);
-            Debug.Log("Enter " + other.name);
+            gameObjects.Add(other.gameObject); 
         }
 
         private void OnColliderExit(Collider2D other)
         {
             if (!gameObjects.Contains(other.gameObject)) return;
-            gameObjects.Remove(other.gameObject);
-            Debug.Log("Exit " + other.name);
+            gameObjects.Remove(other.gameObject); 
         }
 
     }

@@ -9,6 +9,9 @@ public class SensorController : MonoBehaviour
     public delegate void OnColliderTrigger(Collider2D other);
     public event OnColliderTrigger OnTriggerEnter;
     public event OnColliderTrigger OnTriggerExit;
+
+    public delegate void OnSightEventTrigger(GameObject obj);
+    public event OnSightEventTrigger OnObserveChange;
     [HideInInspector]
     public Character character;
     public LayerMask mask;
@@ -38,6 +41,13 @@ public class SensorController : MonoBehaviour
             sense.Dispose();
         }
     }
+
+    public void ObserveChange(GameObject target)
+    {
+        if (OnObserveChange != null)
+            OnObserveChange(target);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Character characterComponent = other.GetComponent<Character>();

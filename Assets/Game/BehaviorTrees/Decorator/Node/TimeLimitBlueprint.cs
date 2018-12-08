@@ -15,28 +15,32 @@ namespace BehaviorTree
         [Input] public BehaviorTreeBlueprint input;
         [Output] public BehaviorTreeBlueprint exit;
 
-        public override BehaviorTreeNode GetNode()
+        public override BehaviorTreeNode GetNode(GameObject owner)
         {
-            TimeLimitNode timeLimitNode = new TimeLimitNode();
+            TimeLimitNode timeLimitNode = new TimeLimitNode(owner);
             NodePort exitPort = GetOutputPort("exit");
             if (exitPort.Connection != null)
             {
                 BehaviorTreeBlueprint blueprint = exitPort.Connection.node as BehaviorTreeBlueprint;
-                timeLimitNode.next = blueprint.GetNode();
+                timeLimitNode.next = blueprint.GetNode(owner);
             }
             return timeLimitNode;
         }
-    } 
-    
+    }
+
     [Serializable]
     public class TimeLimitNode : BehaviorTreeNode
     {
         public BehaviorTreeNode next;
+
+        public TimeLimitNode(GameObject owner) : base(owner)
+        {
+        }
 
         public override NodeStates Evaluate()
         {
             throw new NotImplementedException();
         }
     }
- 
+
 }

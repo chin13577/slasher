@@ -1,0 +1,12 @@
+<TextureAtlas imagePath="sprites.png">
+	<SubTexture name="Body.png" x="68" y="68" width="32" height="32"/>
+	<SubTexture name="Ears.png" x="68" y="34" width="32" height="32"/>
+	<SubTexture name="Eyes_1.png" x="68" y="0" width="32" height="32"/>
+	<SubTexture name="Eyes_2.png" x="34" y="68" width="32" height="32"/>
+	<SubTexture name="Foot_L.png" x="102" y="0" width="32" height="32"/>
+	<SubTexture name="Foot_R.png" x="34" y="0" width="32" height="32"/>
+	<SubTexture name="Hands.png" x="0" y="68" width="32" height="32"/>
+	<SubTexture name="Head.png" x="0" y="34" width="32" height="32"/>
+	<SubTexture name="Mouth.png" x="0" y="0" width="32" height="32"/>
+	<SubTexture name="Tail.png" x="34" y="34" width="32" height="32"/>
+</TextureAtlas>

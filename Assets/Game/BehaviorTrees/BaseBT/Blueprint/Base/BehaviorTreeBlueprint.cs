@@ -19,7 +19,7 @@ namespace BehaviorTree
                 return _graph;
             }
         }
-        public abstract BehaviorTreeNode GetNode();
+        public abstract BehaviorTreeNode GetNode(GameObject owner);
 
         public BehaviorTreeBlueprint GetNextStateFromPort(string portName)
         {

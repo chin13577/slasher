@@ -24,15 +24,15 @@ namespace BattleCore
         public new CameraFollower camera;
         // implement factory letter.
         public Hero heroPrefab;
-
+        [HideInInspector] public Hero player;
         void Awake()
         {
             if (instance == null)
                 instance = this;
 
-            var hero = Instantiate(heroPrefab, world);
-            controller.SetReceiver(hero.gameObject);
-            camera.Initialize(hero.transform);
+            player = Instantiate(heroPrefab, world);
+            controller.SetReceiver(player.gameObject);
+            camera.Initialize(player.transform);
             worldCanvasPoolManager.Initialize();
         }
 

@@ -13,9 +13,9 @@ namespace BehaviorTree
         public string log;
         [Input] public BehaviorTreeBlueprint input;
 
-        public override BehaviorTreeNode GetNode()
+        public override BehaviorTreeNode GetNode(GameObject owner)
         {
-            LogNode logNode = new LogNode();
+            LogNode logNode = new LogNode(owner);
             logNode.log = log;
             return logNode;
         }
@@ -26,6 +26,10 @@ namespace BehaviorTree
     public class LogNode : BehaviorTreeNode
     {
         public string log = "";
+
+        public LogNode(GameObject owner) : base(owner)
+        {
+        }
 
         public override NodeStates Evaluate()
         {

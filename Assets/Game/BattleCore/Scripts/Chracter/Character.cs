@@ -4,7 +4,7 @@ using UnityEngine;
 using Shinnii.Controller;
 using Shinnii.StateMachine;
 using System;
-using BattleCore;
+using BattleCore; 
 
 public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttackEvent, IReceiveDashEvent, IDamageable
 {
@@ -53,6 +53,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         manager = GameManager.Instance;
         machine = new StateMachine(graph, this);
         sensor.Initialize(this);
+
         UpdateSprite(Direction);
         UpdateDirectionSprite(Direction);
         rigid.isKinematic = true;
@@ -60,7 +61,6 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         if (weapon != null)
             weapon.Initialize(this);
     }
-
     void Update()
     {
         machine.Update();

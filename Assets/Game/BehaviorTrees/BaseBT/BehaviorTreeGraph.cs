@@ -9,9 +9,9 @@ namespace BehaviorTree
         [HideInInspector]
         public BehaviorTreeBlueprint root;
 
-        public BehaviorTreeNode GetNode()
+        public BehaviorTreeNode GetNode(GameObject owner)
         {
-            return root.GetNode();
+            return root.GetNode(owner);
         }
     }
 }

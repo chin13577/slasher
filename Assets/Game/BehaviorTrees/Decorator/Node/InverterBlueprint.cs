@@ -15,22 +15,26 @@ namespace BehaviorTree
         [Output] public BehaviorTreeBlueprint exit;
 
 
-        public override BehaviorTreeNode GetNode()
+        public override BehaviorTreeNode GetNode(GameObject owner)
         {
-            InverterNode inverterNode = new InverterNode();
+            InverterNode inverterNode = new InverterNode(owner);
             NodePort exitPort = GetOutputPort("exit");
             if (exitPort.Connection != null)
             {
                 BehaviorTreeBlueprint blueprint = exitPort.Connection.node as BehaviorTreeBlueprint;
-                inverterNode.next = blueprint.GetNode();
+                inverterNode.next = blueprint.GetNode(owner);
             }
             return inverterNode;
         }
-    } 
-    
+    }
+
     public class InverterNode : BehaviorTreeNode
     {
         public BehaviorTreeNode next;
+
+        public InverterNode(GameObject owner) : base(owner)
+        {
+        }
 
         public override NodeStates Evaluate()
         {
@@ -46,5 +50,5 @@ namespace BehaviorTree
                 return resultState;
         }
     }
- 
+
 }

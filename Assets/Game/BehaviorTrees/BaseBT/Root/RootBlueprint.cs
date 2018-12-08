@@ -28,27 +28,31 @@ namespace BehaviorTree
             }
         }
 
-        public override BehaviorTreeNode GetNode()
+        public override BehaviorTreeNode GetNode(GameObject owner)
         {
-            RootNode rootNode = new RootNode();
+            RootNode rootNode = new RootNode(owner);
             NodePort exitPort = GetOutputPort("exit");
             if (exitPort.Connection != null)
             {
                 BehaviorTreeBlueprint blueprint = exitPort.Connection.node as BehaviorTreeBlueprint;
-                rootNode.next = blueprint.GetNode();
+                rootNode.next = blueprint.GetNode(owner);
             }
             return rootNode;
         }
-    } 
-    
+    }
+
     [Serializable]
     public class RootNode : BehaviorTreeNode
     {
         public BehaviorTreeNode next;
 
+        public RootNode(GameObject owner) : base(owner)
+        {
+        }
+
         public override NodeStates Evaluate()
         {
             return next.Evaluate();
         }
-    } 
+    }
 }

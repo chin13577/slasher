@@ -14,18 +14,22 @@ namespace BehaviorTree
         public NodeStates state;
         [Input] public BehaviorTreeBlueprint input;
 
-        public override BehaviorTreeNode GetNode()
+        public override BehaviorTreeNode GetNode(GameObject owner)
         {
-            LogStateNode logStateNode = new LogStateNode();
+            LogStateNode logStateNode = new LogStateNode(owner);
             logStateNode.state = this.state;
             return logStateNode;
         }
     }
- 
+
     [Serializable]
     public class LogStateNode : BehaviorTreeNode
     {
         public NodeStates state;
+
+        public LogStateNode(GameObject owner) : base(owner)
+        {
+        }
 
         public override NodeStates Evaluate()
         {

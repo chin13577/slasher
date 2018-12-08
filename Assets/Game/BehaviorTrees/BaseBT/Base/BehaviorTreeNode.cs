@@ -15,8 +15,12 @@ namespace BehaviorTree
         /* The current state of the node */
         protected NodeStates m_nodeState;
         public NodeStates nodeState { get { return m_nodeState; } }
+        public GameObject owner;
         /* The constructor for the node */
-        public BehaviorTreeNode() { }
+        public BehaviorTreeNode(GameObject owner)
+        {
+            this.owner = owner;
+        }
         /* Implementing classes use this method to evaluate the desired set of conditions */
         public abstract NodeStates Evaluate();
 

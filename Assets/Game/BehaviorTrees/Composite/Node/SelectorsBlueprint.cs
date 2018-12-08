@@ -14,15 +14,15 @@ namespace BehaviorTree
         [Input] public BehaviorTreeBlueprint input;
         [Output] public BehaviorTreeBlueprint exit;
 
-        public override BehaviorTreeNode GetNode()
+        public override BehaviorTreeNode GetNode(GameObject owner)
         {
-            SelectorsNode selectorsNode = new SelectorsNode();
+            SelectorsNode selectorsNode = new SelectorsNode(owner);
             NodePort exitPort = GetOutputPort("exit");
             List<BehaviorTreeNode> nodes = new List<BehaviorTreeNode>();
             for (int i = 0; i < exitPort.ConnectionCount; i++)
             {
                 var blueprint = exitPort.GetConnection(i).node as BehaviorTreeBlueprint;
-                nodes.Add(blueprint.GetNode());
+                nodes.Add(blueprint.GetNode(owner));
             }
             selectorsNode.nexts = nodes;
             return selectorsNode;
@@ -34,6 +34,10 @@ namespace BehaviorTree
     public class SelectorsNode : BehaviorTreeNode
     {
         public List<BehaviorTreeNode> nexts = new List<BehaviorTreeNode>();
+
+        public SelectorsNode(GameObject owner) : base(owner)
+        {
+        }
 
         public override NodeStates Evaluate()
         {

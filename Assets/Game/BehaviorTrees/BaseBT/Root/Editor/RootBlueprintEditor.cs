@@ -18,10 +18,6 @@ namespace BehaviorTree
             {
                 root.ReAlignSequensesOrder();
             }
-            if (GUILayout.Button("GenerateBehaviorTree"))
-            {
-                root.GetNode();
-            }
         }
     }
 }
