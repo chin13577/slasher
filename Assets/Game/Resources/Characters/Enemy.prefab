@@ -393,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 1162905171040542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.13, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_Children:
   - {fileID: 4440379815190538}
   - {fileID: 4524788680763384}
@@ -760,7 +760,7 @@ MonoBehaviour:
   graph: {fileID: 11400000, guid: 170d0a92c42a31849b21d676591d6090, type: 2}
   sensor: {fileID: 114218576427783842}
   manager: {fileID: 0}
-  brain: {fileID: 11400000, guid: 37850c9ade990f64fa308f9d409846f6, type: 2}
+  brain: {fileID: 11400000, guid: b4f346a4da61885408e1f7253d526713, type: 2}
 --- !u!210 &210195124319211238
 SortingGroup:
   m_ObjectHideFlags: 1

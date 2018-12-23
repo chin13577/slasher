@@ -16,10 +16,9 @@ public class Enemy : Character
     private IEnumerator StartAIAlgorithm()
     {
         var root = brain.GetNode(this.gameObject);
-        while (true)
+        while (!IsDead)
         {
             var resultState = root.Evaluate();
-            //Debug.Log(resultState);
             if (resultState == NodeStates.Running || resultState == NodeStates.Success)
                 yield return null;
             else
