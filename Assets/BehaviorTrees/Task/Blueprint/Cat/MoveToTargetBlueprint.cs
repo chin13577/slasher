@@ -51,7 +51,10 @@ public class MoveToTargetNode : BehaviorTreeNode
     public override NodeStates Evaluate()
     {
         if (target == null)
+        {
+            ((IReceiveMovement)ownerCharacter).OnReceiveMovement(ownerCharacter.Direction, 0);
             return m_nodeState = NodeStates.Failure;
+        }
 
         float sqrMagnitudeDistance = Vector2.SqrMagnitude(target.transform.position - owner.transform.position);
         if (sqrMagnitudeDistance < minDist * minDist)
