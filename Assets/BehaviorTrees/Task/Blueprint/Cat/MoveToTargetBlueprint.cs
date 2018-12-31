@@ -56,13 +56,16 @@ public class MoveToTargetNode : BehaviorTreeNode
             return m_nodeState = NodeStates.Failure;
         }
 
+        Vector2 direction = target.transform.position - ownerCharacter.transform.position;
+        ((IReceiveMovement)ownerCharacter).OnReceiveMovement(direction, power);
+
         float sqrMagnitudeDistance = Vector2.SqrMagnitude(target.transform.position - owner.transform.position);
         if (sqrMagnitudeDistance < minDist * minDist)
+        {
             return m_nodeState = NodeStates.Success;
+        }
         else
         {
-            Vector2 direction = target.transform.position - ownerCharacter.transform.position;
-            ((IReceiveMovement)ownerCharacter).OnReceiveMovement(direction, power);
             return m_nodeState = NodeStates.Running;
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using Shinnii.Controller;
 using Shinnii.StateMachine;
 using System;
-using BattleCore; 
+using BattleCore;
 
 public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttackEvent, IReceiveDashEvent, IDamageable
 {
@@ -61,11 +61,15 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         if (weapon != null)
             weapon.Initialize(this);
     }
+
+    void FixedUpdate()
+    {
+        rigid.velocity = Vector2.zero;
+    }
     void Update()
     {
         machine.Update();
         rigid.isKinematic = currentPower == 0 && !IsDash && !IsAttacking;
-
         if (TrackingTarget == null)
             IsTracking = false;
         else
@@ -96,7 +100,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         damageText.gameObject.SetActive(true);
     }
 
-    private void Dead()
+    public virtual void Dead()
     {
         print("dead");
     }
