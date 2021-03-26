@@ -40,7 +40,7 @@ public class IsTargetInRangeNode : BehaviorTreeNode
 
     public override NodeStates Evaluate()
     {
-        target = ownerCharacter.TrackingTarget;
+        target = ownerCharacter.TargetOnSight;
         if (target == null)
             return m_nodeState = NodeStates.Failure;
 

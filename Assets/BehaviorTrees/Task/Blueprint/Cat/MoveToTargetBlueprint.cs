@@ -30,7 +30,6 @@ public class MoveToTargetNode : BehaviorTreeNode
 {
     GameObject target;
     Character ownerCharacter;
-    SensorController sensor;
 
     public float minDist, power;
     public MoveToTargetNode(GameObject owner) : base(owner)
@@ -40,16 +39,11 @@ public class MoveToTargetNode : BehaviorTreeNode
         {
             Debug.LogWarning("SeekNode: Not found Component 'Character' in gameObject.");
         }
-        sensor = ownerCharacter.sensor;
-        sensor.OnObserveChange += Callback_OnObserveChange;
-    }
-    private void Callback_OnObserveChange(GameObject obj)
-    {
-        target = ownerCharacter.TrackingTarget;
     }
 
     public override NodeStates Evaluate()
     {
+        target = ownerCharacter.TargetOnSight;
         if (target == null)
         {
             ((IReceiveMovement)ownerCharacter).OnReceiveMovement(ownerCharacter.Direction, 0);
@@ -59,27 +53,19 @@ public class MoveToTargetNode : BehaviorTreeNode
         Vector2 direction = target.transform.position - ownerCharacter.transform.position;
         ((IReceiveMovement)ownerCharacter).OnReceiveMovement(direction, power);
 
-        float sqrMagnitudeDistance = Vector2.SqrMagnitude(target.transform.position - owner.transform.position);
-        if (sqrMagnitudeDistance < minDist * minDist)
-        {
-            return m_nodeState = NodeStates.Success;
-        }
-        else
-        {
-            return m_nodeState = NodeStates.Running;
-        }
+        return m_nodeState = NodeStates.Running;
 
     }
 
     public override void OnReset()
     {
-        target = ownerCharacter.TrackingTarget;
+        target = ownerCharacter.TargetOnSight;
         m_nodeState = NodeStates.Failure;
     }
 
     public override void OnComplete()
     {
-        target = ownerCharacter.TrackingTarget;
+        target = ownerCharacter.TargetOnSight;
         m_nodeState = NodeStates.Failure;
     }
 }

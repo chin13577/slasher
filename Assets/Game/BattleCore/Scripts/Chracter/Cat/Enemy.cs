@@ -6,24 +6,28 @@ using UnityEngine;
 
 public class Enemy : Character
 {
+    private const float BRAIN_REFRESH_INTERVAL = 0.2f;
     public BehaviorTreeGraph brain;
 
     void Start()
     {
-        StartCoroutine(StartAIAlgorithm());
+        StartCoroutine(RunBehaviorTree());
     }
 
-    private IEnumerator StartAIAlgorithm()
+    private IEnumerator RunBehaviorTree()
     {
         var root = brain.GetNode(this.gameObject);
         while (!IsDead)
         {
             var resultState = root.Evaluate();
-            if (resultState == NodeStates.Running || resultState == NodeStates.Success)
+            if (resultState == NodeStates.Running)
                 yield return null;
+            else if (resultState == NodeStates.Success)
+                break;
             else
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(BRAIN_REFRESH_INTERVAL);
         }
+        yield break;
     }
 
     public override void OnAnimationAttackTrigger(int param)

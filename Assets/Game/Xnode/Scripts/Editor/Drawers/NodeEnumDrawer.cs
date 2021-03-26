@@ -12,6 +12,12 @@ namespace XNodeEditor {
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
 			EditorGUI.BeginProperty(position, label, property);
 
+			EnumPopup(position, property, label);
+
+			EditorGUI.EndProperty();
+		}
+
+		public static void EnumPopup(Rect position, SerializedProperty property, GUIContent label) {
 			// Throw error on wrong type
 			if (property.propertyType != SerializedPropertyType.Enum) {
 				throw new ArgumentException("Parameter selected must be of type System.Enum");
@@ -24,16 +30,24 @@ namespace XNodeEditor {
 			string enumName = "";
 			if (property.enumValueIndex >= 0 && property.enumValueIndex < property.enumDisplayNames.Length) enumName = property.enumDisplayNames[property.enumValueIndex];
 
+#if UNITY_2017_1_OR_NEWER
 			// Display dropdown
 			if (EditorGUI.DropdownButton(position, new GUIContent(enumName), FocusType.Passive)) {
 				// Position is all wrong if we show the dropdown during the node draw phase.
 				// Instead, add it to onLateGUI to display it later.
 				NodeEditorWindow.current.onLateGUI += () => ShowContextMenuAtMouse(property);
 			}
-			EditorGUI.EndProperty();
+#else
+			// Display dropdown
+			if (GUI.Button(position, new GUIContent(enumName), "MiniPopup")) {
+				// Position is all wrong if we show the dropdown during the node draw phase.
+				// Instead, add it to onLateGUI to display it later.
+				NodeEditorWindow.current.onLateGUI += () => ShowContextMenuAtMouse(property);
+			}
+#endif
 		}
 
-		private void ShowContextMenuAtMouse(SerializedProperty property) {
+		public static void ShowContextMenuAtMouse(SerializedProperty property) {
 			// Initialize menu
 			GenericMenu menu = new GenericMenu();
 
@@ -48,9 +62,10 @@ namespace XNodeEditor {
 			menu.DropDown(r);
 		}
 
-		private void SetEnum(SerializedProperty property, int index) {
+		private static void SetEnum(SerializedProperty property, int index) {
 			property.enumValueIndex = index;
 			property.serializedObject.ApplyModifiedProperties();
+			property.serializedObject.Update();
 		}
 	}
 }
