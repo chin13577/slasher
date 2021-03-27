@@ -25,7 +25,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     [HideInInspector]
     public GameManager manager;
 
-    public GameObject TrackingTarget { get; set; }
+    public GameObject TargetOnSight { get; set; }
     private Vector2 _direction = new Vector2(1, 0);
     public Vector2 Direction { get { return _direction; } set { _direction = value; } }
     private Vector2 _attackDirection = new Vector2(1, 0);
@@ -70,12 +70,12 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     {
         machine.Update();
         rigid.isKinematic = currentPower == 0 && !IsDash && !IsAttacking;
-        if (TrackingTarget == null)
+        if (TargetOnSight == null)
             IsTracking = false;
         else
         {
             IsTracking = true;
-            Vector2 direction = (TrackingTarget.transform.position - transform.position).ToVector2().normalized;
+            Vector2 direction = (TargetOnSight.transform.position - transform.position).ToVector2().normalized;
             UpdateAttackDirection(direction);
         }
 

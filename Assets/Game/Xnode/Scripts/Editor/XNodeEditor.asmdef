@@ -1,4 +1,4 @@
-{
+﻿{
     "name": "XNodeEditor",
     "references": [
         "XNode"
@@ -12,5 +12,6 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": []
 }

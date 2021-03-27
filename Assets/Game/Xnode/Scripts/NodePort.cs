@@ -19,8 +19,18 @@ namespace XNode {
             }
         }
 
-        public IO direction { get { return _direction; } }
-        public Node.ConnectionType connectionType { get { return _connectionType; } }
+        public IO direction { 
+            get { return _direction; }
+            internal set { _direction = value; }
+        }
+        public Node.ConnectionType connectionType {
+            get { return _connectionType; }
+            internal set { _connectionType = value; }
+        }
+        public Node.TypeConstraint typeConstraint {
+            get { return _typeConstraint; }
+            internal set { _typeConstraint = value; }
+        }
 
         /// <summary> Is this port connected to anytihng? </summary>
         public bool IsConnected { get { return connections.Count != 0; } }
@@ -49,6 +59,7 @@ namespace XNode {
         [SerializeField] private List<PortConnection> connections = new List<PortConnection>();
         [SerializeField] private IO _direction;
         [SerializeField] private Node.ConnectionType _connectionType;
+        [SerializeField] private Node.TypeConstraint _typeConstraint;
         [SerializeField] private bool _dynamic;
 
         /// <summary> Construct a static targetless nodeport. Used as a template. </summary>
@@ -61,9 +72,11 @@ namespace XNode {
                 if (attribs[i] is Node.InputAttribute) {
                     _direction = IO.Input;
                     _connectionType = (attribs[i] as Node.InputAttribute).connectionType;
+                    _typeConstraint = (attribs[i] as Node.InputAttribute).typeConstraint;
                 } else if (attribs[i] is Node.OutputAttribute) {
                     _direction = IO.Output;
                     _connectionType = (attribs[i] as Node.OutputAttribute).connectionType;
+                    _typeConstraint = (attribs[i] as Node.OutputAttribute).typeConstraint;
                 }
             }
         }
@@ -75,17 +88,19 @@ namespace XNode {
             _direction = nodePort.direction;
             _dynamic = nodePort._dynamic;
             _connectionType = nodePort._connectionType;
+            _typeConstraint = nodePort._typeConstraint;
             _node = node;
         }
 
         /// <summary> Construct a dynamic port. Dynamic ports are not forgotten on reimport, and is ideal for runtime-created ports. </summary>
-        public NodePort(string fieldName, Type type, IO direction, Node.ConnectionType connectionType, Node node) {
+        public NodePort(string fieldName, Type type, IO direction, Node.ConnectionType connectionType, Node.TypeConstraint typeConstraint, Node node) {
             _fieldName = fieldName;
             this.ValueType = type;
             _direction = direction;
             _node = node;
             _dynamic = true;
             _connectionType = connectionType;
+            _typeConstraint = typeConstraint;
         }
 
         /// <summary> Checks all connections for invalid references, and removes them. </summary>
@@ -193,6 +208,10 @@ namespace XNode {
             if (port == this) { Debug.LogWarning("Cannot connect port to self."); return; }
             if (IsConnectedTo(port)) { Debug.LogWarning("Port already connected. "); return; }
             if (direction == port.direction) { Debug.LogWarning("Cannot connect two " + (direction == IO.Input ? "input" : "output") + " connections"); return; }
+#if UNITY_EDITOR
+            UnityEditor.Undo.RecordObject(node, "Connect Port");
+            UnityEditor.Undo.RecordObject(port.node, "Connect Port");
+#endif
             if (port.connectionType == Node.ConnectionType.Override && port.ConnectionCount != 0) { port.ClearConnections(); }
             if (connectionType == Node.ConnectionType.Override && ConnectionCount != 0) { ClearConnections(); }
             connections.Add(new PortConnection(port));
@@ -240,6 +259,30 @@ namespace XNode {
             return false;
         }
 
+        /// <summary> Returns true if this port can connect to specified port </summary>
+        public bool CanConnectTo(NodePort port) {
+            // Figure out which is input and which is output
+            NodePort input = null, output = null;
+            if (IsInput) input = this;
+            else output = this;
+            if (port.IsInput) input = port;
+            else output = port;
+            // If there isn't one of each, they can't connect
+            if (input == null || output == null) return false;
+            // Check input type constraints
+            if (input.typeConstraint == XNode.Node.TypeConstraint.Inherited && !input.ValueType.IsAssignableFrom(output.ValueType)) return false;
+            if (input.typeConstraint == XNode.Node.TypeConstraint.Strict && input.ValueType != output.ValueType) return false;
+            if (input.typeConstraint == XNode.Node.TypeConstraint.InheritedInverse && !output.ValueType.IsAssignableFrom(input.ValueType)) return false;
+            if (input.typeConstraint == XNode.Node.TypeConstraint.InheritedAny && !input.ValueType.IsAssignableFrom(output.ValueType) && !output.ValueType.IsAssignableFrom(input.ValueType)) return false;
+            // Check output type constraints
+            if (output.typeConstraint == XNode.Node.TypeConstraint.Inherited && !input.ValueType.IsAssignableFrom(output.ValueType)) return false;
+            if (output.typeConstraint == XNode.Node.TypeConstraint.Strict && input.ValueType != output.ValueType) return false;
+            if (output.typeConstraint == XNode.Node.TypeConstraint.InheritedInverse && !output.ValueType.IsAssignableFrom(input.ValueType)) return false;
+            if (output.typeConstraint == XNode.Node.TypeConstraint.InheritedAny && !input.ValueType.IsAssignableFrom(output.ValueType) && !output.ValueType.IsAssignableFrom(input.ValueType)) return false;
+            // Success
+            return true;
+        }
+
         /// <summary> Disconnect this port from another port </summary>
         public void Disconnect(NodePort port) {
             // Remove this ports connection to the other
@@ -258,7 +301,7 @@ namespace XNode {
             }
             // Trigger OnRemoveConnection
             node.OnRemoveConnection(this);
-            if (port != null) port.node.OnRemoveConnection(port);
+            if (port != null && port.IsConnectedTo(this)) port.node.OnRemoveConnection(port);
         }
 
         /// <summary> Disconnect this port from another port </summary>
@@ -266,11 +309,7 @@ namespace XNode {
             // Remove the other ports connection to this port
             NodePort otherPort = connections[i].Port;
             if (otherPort != null) {
-                for (int k = 0; k < otherPort.connections.Count; k++) {
-                    if (otherPort.connections[k].Port == this) {
-                        otherPort.connections.RemoveAt(i);
-                    }
-                }
+                otherPort.connections.RemoveAll(it => { return it.Port == this; });
             }
             // Remove this ports connection to the other
             connections.RemoveAt(i);

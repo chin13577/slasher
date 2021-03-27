@@ -40,11 +40,11 @@ public class IsTargetInRangeNode : BehaviorTreeNode
 
     public override NodeStates Evaluate()
     {
-        target = ownerCharacter.TrackingTarget;
+        target = ownerCharacter.TargetOnSight;
         if (target == null)
             return m_nodeState = NodeStates.Failure;
 
-        float sqrMagnitudeDistance = Vector2.SqrMagnitude(target.transform.position - owner.transform.position); 
+        float sqrMagnitudeDistance = Vector2.SqrMagnitude(target.transform.position - owner.transform.position);
         if (sqrMagnitudeDistance < minDist * minDist)
             return m_nodeState = NodeStates.Success;
         else

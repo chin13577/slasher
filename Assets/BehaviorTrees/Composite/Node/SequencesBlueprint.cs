@@ -34,6 +34,7 @@ namespace BehaviorTree
     public class SequencesNode : BehaviorTreeNode
     {
         public List<BehaviorTreeNode> nexts = new List<BehaviorTreeNode>();
+        private int currentIndex = 0;
 
         public SequencesNode(GameObject owner) : base(owner)
         {
@@ -41,23 +42,26 @@ namespace BehaviorTree
 
         public override NodeStates Evaluate()
         {
-            for (int i = 0; i < nexts.Count; i++)
+            for (int i = currentIndex; i < nexts.Count; i++)
             {
-                switch (nexts[i].Evaluate())
+                BehaviorTreeNode currentNode = nexts[i];
+                switch (currentNode.Evaluate())
                 {
                     case NodeStates.Failure:
                         m_nodeState = NodeStates.Failure;
                         CheckInturrupted(i);
-
                         return m_nodeState;
                     case NodeStates.Success:
                         m_nodeState = NodeStates.Success;
                         continue;
                     case NodeStates.Running:
                         m_nodeState = NodeStates.Running;
+                        // if currentNode is running so that, we continue run only this node until return success or fail. 
+                        currentIndex = i;
                         return NodeStates.Running;
                     default:
                         m_nodeState = NodeStates.Success;
+                        currentIndex++;
                         return m_nodeState;
                 }
             }
@@ -66,6 +70,7 @@ namespace BehaviorTree
 
         private void CheckInturrupted(int currentIndex)
         {
+            this.currentIndex = 0;
             for (int i = currentIndex + 1; i < nexts.Count; i++)
             {
                 if (nexts[i].nodeState != NodeStates.Failure)
@@ -75,6 +80,7 @@ namespace BehaviorTree
 
         public override void OnReset()
         {
+            this.currentIndex = 0;
             for (int i = 0; i < nexts.Count; i++)
             {
                 nexts[i].OnReset();
@@ -83,6 +89,7 @@ namespace BehaviorTree
 
         public override void OnComplete()
         {
+            this.currentIndex = 0;
             for (int i = 0; i < nexts.Count; i++)
             {
                 nexts[i].OnComplete();

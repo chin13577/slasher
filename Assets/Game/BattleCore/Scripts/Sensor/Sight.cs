@@ -29,7 +29,7 @@ namespace Shinnii.Senses
             if (target != obj)
             {
                 target = obj;
-                character.TrackingTarget = FindTrackingObject();
+                character.TargetOnSight = FindTrackingObject();
                 controller.ObserveChange(obj);
             }
         }
