@@ -3,7 +3,6 @@ using System.Collections;
 using System;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(EnumFlagsAttribute))]
 public class EnumFlagsAttributeDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect _position, SerializedProperty _property, GUIContent _label)
