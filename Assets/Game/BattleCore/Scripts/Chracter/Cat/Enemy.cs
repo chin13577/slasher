@@ -17,13 +17,13 @@ public class Enemy : Character
     private IEnumerator RunBehaviorTree()
     {
         var root = brain.GetNode(this.gameObject);
-        while (!IsDead)
+        while (true && !IsDead)
         {
             var resultState = root.Evaluate();
             if (resultState == NodeStates.Running)
-                yield return null;
+                yield return null; // wait for next frame.
             else if (resultState == NodeStates.Success)
-                break;
+                yield return null;
             else
                 yield return new WaitForSeconds(BRAIN_REFRESH_INTERVAL);
         }
