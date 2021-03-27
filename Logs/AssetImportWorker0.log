@@ -1224,3 +1224,164 @@ Total: 1.983200 ms (FindLiveObjects: 0.216700 ms CreateObjectMapping: 0.076000 m
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001801 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.46 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.303 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(589824) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.41 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1559 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 72.7 MB.
+System memory in use after: 72.8 MB.
+
+Unloading 59 unused Assets to reduce memory usage. Loaded Objects now: 2089.
+Total: 2.128900 ms (FindLiveObjects: 0.222200 ms CreateObjectMapping: 0.102100 ms MarkObjects: 1.755400 ms  DeleteObjects: 0.048300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001880 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.41 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.022 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(589824) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.45 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1559 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 72.7 MB.
+System memory in use after: 72.8 MB.
+
+Unloading 59 unused Assets to reduce memory usage. Loaded Objects now: 2092.
+Total: 2.516900 ms (FindLiveObjects: 0.265100 ms CreateObjectMapping: 0.106600 ms MarkObjects: 2.097500 ms  DeleteObjects: 0.045900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001994 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.43 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.047 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(589824) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.41 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1559 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 72.7 MB.
+System memory in use after: 72.8 MB.
+
+Unloading 59 unused Assets to reduce memory usage. Loaded Objects now: 2095.
+Total: 1.990100 ms (FindLiveObjects: 0.167500 ms CreateObjectMapping: 0.058100 ms MarkObjects: 1.723600 ms  DeleteObjects: 0.039800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Import Request.
+  Time since last request: 287.125248 seconds.
+  path: Assets/BehaviorTrees/Example/GuardBrain.asset
+  artifactKey: Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BehaviorTrees/Example/GuardBrain.asset using Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '393cff1711ccccdc129037e72c28bf82') in 0.012016 seconds
+  Import took 0.014555 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005606 seconds.
+  path: Assets/BehaviorTrees/Example/GuardBrain.asset
+  artifactKey: Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BehaviorTrees/Example/GuardBrain.asset using Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '393cff1711ccccdc129037e72c28bf82') in 0.004068 seconds
+  Import took 0.006782 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.877349 seconds.
+  path: Assets/BehaviorTrees/Example/GuardBrain.asset
+  artifactKey: Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BehaviorTrees/Example/GuardBrain.asset using Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56c557a801c64ccf33422c5482851560') in 0.003857 seconds
+  Import took 0.006286 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.481735 seconds.
+  path: Assets/BehaviorTrees/Example/GuardBrain.asset
+  artifactKey: Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BehaviorTrees/Example/GuardBrain.asset using Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64928a4a4aa78f758ded23a25d310f2f') in 0.004178 seconds
+  Import took 0.007287 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 49.889534 seconds.
+  path: Assets/BehaviorTrees/Example/GuardBrain.asset
+  artifactKey: Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BehaviorTrees/Example/GuardBrain.asset using Guid(98d16e84e3daa4b4bad48756928c2266) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7479b353ef58bc7cc91b4b2db830275f') in 0.003775 seconds
+  Import took 0.006238 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.116841 seconds.
+  path: Assets/BehaviorTrees/Task/Blueprint/Cat/MoveToTargetBlueprint.cs
+  artifactKey: Guid(dd955159588b84f4baaa8db011c5964b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BehaviorTrees/Task/Blueprint/Cat/MoveToTargetBlueprint.cs using Guid(dd955159588b84f4baaa8db011c5964b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb7a8dc759545dbe82198f56c8ed2510') in 0.001940 seconds
+  Import took 0.004923 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002821 seconds.
+  path: Assets/BehaviorTrees/Task/Blueprint/Cat/MoveToTargetBlueprint.cs
+  artifactKey: Guid(dd955159588b84f4baaa8db011c5964b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/BehaviorTrees/Task/Blueprint/Cat/MoveToTargetBlueprint.cs using Guid(dd955159588b84f4baaa8db011c5964b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb7a8dc759545dbe82198f56c8ed2510') in 0.002060 seconds
+  Import took 0.004801 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002063 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.42 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.089 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(589824) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.40 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1553 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 72.6 MB.
+System memory in use after: 72.7 MB.
+
+Unloading 59 unused Assets to reduce memory usage. Loaded Objects now: 2098.
+Total: 1.846500 ms (FindLiveObjects: 0.147100 ms CreateObjectMapping: 0.046400 ms MarkObjects: 1.613500 ms  DeleteObjects: 0.037900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
