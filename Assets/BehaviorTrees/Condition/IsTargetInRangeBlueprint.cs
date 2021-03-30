@@ -44,8 +44,8 @@ public class IsTargetInRangeNode : BehaviorTreeNode
         if (target == null)
             return m_nodeState = NodeStates.Failure;
 
-        float sqrMagnitudeDistance = Vector2.SqrMagnitude(target.transform.position - owner.transform.position);
-        if (sqrMagnitudeDistance < minDist * minDist)
+        float distance = Vector2.Distance(target.transform.position, owner.transform.position);
+        if (distance < minDist)
             return m_nodeState = NodeStates.Success;
         else
             return m_nodeState = NodeStates.Failure;
