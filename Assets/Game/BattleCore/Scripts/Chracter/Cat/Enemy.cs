@@ -16,8 +16,9 @@ public class Enemy : Character
 
     private IEnumerator RunBehaviorTree()
     {
-        var root = brain.GetNode(this.gameObject);
-        while (true && !IsDead)
+        BehaviorTreeNode root = brain.GetNode(this.gameObject);
+        // BehaviorTreeNode root = this.createGuardEnemy01Decision();
+        while (!IsDead)
         {
             var resultState = root.Evaluate();
             if (resultState == NodeStates.Running)
@@ -28,6 +29,16 @@ public class Enemy : Character
                 yield return new WaitForSeconds(BRAIN_REFRESH_INTERVAL);
         }
         yield break;
+    }
+
+    private BehaviorTreeNode createGuardEnemy01Decision()
+    {
+        BehaviorTreeNode root = new RootNode(this.gameObject);
+        SequencesNode sequenceNode = new SequencesNode(this.gameObject);
+        sequenceNode.nexts.Add(new IsHasTargetNode(this.gameObject));
+        sequenceNode.nexts.Add(new MoveToTargetNode(this.gameObject) { minDist = 0.8f, power = 1 });
+        ((RootNode)root).next = sequenceNode;
+        return root;
     }
 
     public override void OnAnimationAttackTrigger(int param)

@@ -127,8 +127,8 @@ namespace Shinnii.StateMachine
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
         {
             animator.SetFloat("MoveSpeed", power);
-            character.Direction = direction;
-            character.Move(power / 2.5f);
+            //character.Direction = direction;
+            character.Move(direction, power / 2.5f);
         }
 
         void IReceiveAttackEnter.OnReceiveAttackEnter()

@@ -66,7 +66,7 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
     {
         rigid.velocity = Vector2.zero;
     }
-    void Update()
+    public virtual void Update()
     {
         machine.Update();
         rigid.isKinematic = currentPower == 0 && !IsDash && !IsAttacking;
@@ -75,8 +75,8 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         else
         {
             IsTracking = true;
-            Vector2 direction = (TargetOnSight.transform.position - transform.position).ToVector2().normalized;
-            UpdateAttackDirection(direction);
+            //Vector2 direction = (TargetOnSight.transform.position - transform.position).ToVector2().normalized;
+            //UpdateAttackDirection(direction);
         }
 
     }
@@ -173,8 +173,9 @@ public abstract class Character : MonoBehaviour, IReceiveMovement, IReceiveAttac
         UpdateDirectionSprite(direction);
         UpdateHandTransformRotation(direction);
     }
-    public void Move(float power)
+    public virtual void Move(Vector2 direction, float power)
     {
+        this.Direction = direction;
         currentPower = power;
         Vector3 newPos = this.transform.position + new Vector3(Direction.x, Direction.y, 0) * status.speed * power * Time.deltaTime;
         rigid.MovePosition(newPos);

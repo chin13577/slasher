@@ -39,9 +39,10 @@ public class LookAtTargetNode : BehaviorTreeNode
     {
         target = ownerCharacter.TargetOnSight;
         if (target == null)
-            return m_nodeState = NodeStates.Failure; 
+            return m_nodeState = NodeStates.Failure;
         Vector2 direction = target.transform.position - ownerCharacter.transform.position;
         ((IReceiveMovement)ownerCharacter).OnReceiveMovement(direction, 0);
+        ownerCharacter.UpdateAttackDirection(direction);
         return m_nodeState = NodeStates.Success;
     }
 

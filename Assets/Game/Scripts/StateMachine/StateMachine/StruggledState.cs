@@ -17,13 +17,13 @@ namespace Shinnii.StateMachine
         public override void Enter()
         {
             nextBluePrint = null;
-            character.IsStruggle = true; 
+            character.IsStruggle = true;
 
             this.info = machine.GetCurrentNode().info;
             character.AddListener((IReceiveMovement)this);
             character.AddListener((IReceiveDamageEvent)this);
             animRoutine = character.StartCoroutine(Animate());
-            character.UpdateAttackDirection(machine.currentDamageData.damageDirection * -1f); 
+            character.UpdateAttackDirection(machine.currentDamageData.damageDirection * -1f);
         }
 
         public override void Exit()
@@ -60,21 +60,21 @@ namespace Shinnii.StateMachine
             if (nextBluePrint != null)
                 Finish();
         }
-         
+
         void IReceiveMovement.OnReceiveMovement(Vector2 direction, float power)
         {
             power = power / 2;
             animator.SetFloat("MoveSpeed", power);
-            character.Direction = direction;
+            //character.Direction = direction;
             character.UpdateAttackDirection(direction);
-            character.Move(power);
+            character.Move(direction, power);
         }
 
         void IReceiveDamageEvent.OnTakeDamage(DamageData damageData)
-        { 
+        {
             if ((DateTime.Now - character.lastHit).TotalSeconds <= character.status.ImmuneTime) return;
             character.lastHit = DateTime.Now;
-            character.DealDamage(damageData); 
+            character.DealDamage(damageData);
             if (character.IsDead)
             {
                 machine.JumpToAnyState(StateType.Dead);
@@ -82,22 +82,22 @@ namespace Shinnii.StateMachine
             else
             {
                 if (damageData.interruptedType != InterruptedType.None)
-                { 
+                {
                     StruggledNode struggledNode = machine.GetCurrentNode() as StruggledNode;
                     ImmuneType immuneTo = struggledNode.immuneTo;
                     bool immuneSuccess = false;
                     foreach (ImmuneType type in System.Enum.GetValues(typeof(ImmuneType)))
                     {
                         if (immuneTo.HasFlag(type))
-                        { 
+                        {
                             if (damageData.interruptedType.ToString() == type.ToString())
                                 immuneSuccess = true;
                         }
-                    } 
+                    }
                     if (!immuneSuccess)
-                    { 
+                    {
                         machine.OnInturrupted(damageData);
-                    } 
+                    }
                 }
             }
         }

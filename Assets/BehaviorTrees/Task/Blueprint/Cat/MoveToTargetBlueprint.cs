@@ -51,7 +51,7 @@ public class MoveToTargetNode : BehaviorTreeNode
         }
 
         float sqrMagnitudeDistance = Vector2.SqrMagnitude(target.transform.position - owner.transform.position);
-        if (sqrMagnitudeDistance < minDist * minDist)
+        if (sqrMagnitudeDistance <= minDist * minDist)
         {
             return m_nodeState = NodeStates.Success;
         }
