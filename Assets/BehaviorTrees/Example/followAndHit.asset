@@ -1,53 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7474056108509090458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4163a5fb61f88ab4ca3d5aab8c70e043, type: 3}
-  m_Name: Sequences Blueprint
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -648, y: -120}
-  ports:
-    keys:
-    - input
-    - exit
-    values:
-    - _fieldName: input
-      _node: {fileID: -7474056108509090458}
-      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: exit
-      _node: {fileID: -7474056108509090458}
-      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: 114545012125450440}
-        reroutePoints: []
-      - fieldName: input
-        node: {fileID: -994367421193267451}
-        reroutePoints: []
-      - fieldName: input
-        node: {fileID: 114545986438366832}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  input: {fileID: 0}
-  exit: {fileID: 0}
 --- !u!114 &-5527690551120087733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +13,7 @@ MonoBehaviour:
   m_Name: Is Has Target Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -264, y: 56}
+  position: {x: -312, y: -168}
   ports:
     keys:
     - input
@@ -79,7 +31,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 0}
---- !u!114 &-1500384479310757915
+--- !u!114 &-3930858668895831457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,29 +40,85 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faed866c9fbe3b44f9023362e2e01e82, type: 3}
-  m_Name: Look At Target Blueprint
+  m_Script: {fileID: 11500000, guid: 3e1e5fffb38a8b14f94e6f4e6924a6f0, type: 3}
+  m_Name: Selectors Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -24, y: 56}
+  position: {x: 584, y: -264}
   ports:
     keys:
     - input
+    - exit
     values:
     - _fieldName: input
-      _node: {fileID: -1500384479310757915}
+      _node: {fileID: -3930858668895831457}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3930858668895831457}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
+  exit: {fileID: 0}
+--- !u!114 &-3619120851588187983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1e5fffb38a8b14f94e6f4e6924a6f0, type: 3}
+  m_Name: Selectors Blueprint
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -168, y: -456}
+  ports:
+    keys:
+    - input
+    - exit
+    values:
+    - _fieldName: input
+      _node: {fileID: -3619120851588187983}
       _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: exit
+        node: {fileID: 114962637816566818}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3619120851588187983}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: -3121082345381067921}
+        reroutePoints: []
+      - fieldName: input
         node: {fileID: 1831210017571692312}
         reroutePoints: []
-      _direction: 0
+      _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 0}
---- !u!114 &-994367421193267451
+  exit: {fileID: 0}
+--- !u!114 &-3121082345381067921
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,28 +127,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faed866c9fbe3b44f9023362e2e01e82, type: 3}
-  m_Name: Look At Target Blueprint
+  m_Script: {fileID: 11500000, guid: 4163a5fb61f88ab4ca3d5aab8c70e043, type: 3}
+  m_Name: Sequences Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -760, y: 120}
+  position: {x: -520, y: -312}
   ports:
     keys:
     - input
+    - exit
     values:
     - _fieldName: input
-      _node: {fileID: -994367421193267451}
+      _node: {fileID: -3121082345381067921}
       _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: exit
-        node: {fileID: -7474056108509090458}
+        node: {fileID: -3619120851588187983}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3121082345381067921}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: 114545012125450440}
+        reroutePoints: []
+      - fieldName: input
+        node: {fileID: 114003496299419644}
+        reroutePoints: []
+      - fieldName: input
+        node: {fileID: 114545986438366832}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
   input: {fileID: 0}
+  exit: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,20 +179,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d88fd1610feb6de4c94f8b7d8aa86d2b, type: 3}
-  m_Name: GuardBrain
+  m_Name: followAndHit
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 114962637816566818}
   - {fileID: 114566423065949522}
-  - {fileID: 114712590338895074}
   - {fileID: 114003496299419644}
   - {fileID: 114545012125450440}
   - {fileID: 114545986438366832}
   - {fileID: 1831210017571692312}
   - {fileID: -5527690551120087733}
-  - {fileID: -1500384479310757915}
-  - {fileID: -7474056108509090458}
-  - {fileID: -994367421193267451}
+  - {fileID: 5787782062357398748}
+  - {fileID: -3930858668895831457}
+  - {fileID: 8409842196766795778}
+  - {fileID: -3619120851588187983}
+  - {fileID: -3121082345381067921}
+  - {fileID: 8412279145456281312}
   root: {fileID: 114962637816566818}
 --- !u!114 &114003496299419644
 MonoBehaviour:
@@ -179,7 +209,7 @@ MonoBehaviour:
   m_Name: Look At Target Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 264, y: -24}
+  position: {x: -712, y: -72}
   ports:
     keys:
     - input
@@ -188,7 +218,10 @@ MonoBehaviour:
       _node: {fileID: 114003496299419644}
       _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: exit
+        node: {fileID: -3121082345381067921}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -207,7 +240,7 @@ MonoBehaviour:
   m_Name: Is Target In Range Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1032, y: 184}
+  position: {x: -888, y: -136}
   ports:
     keys:
     - input
@@ -218,7 +251,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: exit
-        node: {fileID: -7474056108509090458}
+        node: {fileID: -3121082345381067921}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -239,7 +272,7 @@ MonoBehaviour:
   m_Name: Attack Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -616, y: 40}
+  position: {x: -520, y: -104}
   ports:
     keys:
     - input
@@ -250,7 +283,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: exit
-        node: {fileID: -7474056108509090458}
+        node: {fileID: -3121082345381067921}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -270,7 +303,7 @@ MonoBehaviour:
   m_Name: Move To Target Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 216, y: 216}
+  position: {x: -56, y: -184}
   ports:
     keys:
     - input
@@ -279,7 +312,10 @@ MonoBehaviour:
       _node: {fileID: 114566423065949522}
       _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: exit
+        node: {fileID: 1831210017571692312}
+        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
@@ -287,51 +323,6 @@ MonoBehaviour:
   minDist: 0.8
   power: 1
   input: {fileID: 0}
---- !u!114 &114712590338895074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e1e5fffb38a8b14f94e6f4e6924a6f0, type: 3}
-  m_Name: Selectors Blueprint
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -312, y: -264}
-  ports:
-    keys:
-    - input
-    - exit
-    values:
-    - _fieldName: input
-      _node: {fileID: 114712590338895074}
-      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: exit
-        node: {fileID: 114962637816566818}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: exit
-      _node: {fileID: 114712590338895074}
-      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: 1831210017571692312}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  input: {fileID: 0}
-  exit: {fileID: 0}
 --- !u!114 &114962637816566818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +336,7 @@ MonoBehaviour:
   m_Name: Root
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -344, y: -408}
+  position: {x: -152, y: -568}
   ports:
     keys:
     - exit
@@ -356,7 +347,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: 114712590338895074}
+        node: {fileID: -3619120851588187983}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -376,7 +367,7 @@ MonoBehaviour:
   m_Name: Sequences Blueprint
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -88, y: -88}
+  position: {x: -184, y: -312}
   ports:
     keys:
     - input
@@ -388,7 +379,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: exit
-        node: {fileID: 114712590338895074}
+        node: {fileID: -3619120851588187983}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -403,7 +394,7 @@ MonoBehaviour:
         node: {fileID: -5527690551120087733}
         reroutePoints: []
       - fieldName: input
-        node: {fileID: -1500384479310757915}
+        node: {fileID: 114566423065949522}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -411,3 +402,109 @@ MonoBehaviour:
       _dynamic: 0
   input: {fileID: 0}
   exit: {fileID: 0}
+--- !u!114 &5787782062357398748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4d4f55eb2303c4fb6fc3d1ca2d7832, type: 3}
+  m_Name: Inverter Blueprint
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 856, y: -248}
+  ports:
+    keys:
+    - input
+    - exit
+    values:
+    - _fieldName: input
+      _node: {fileID: 5787782062357398748}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 5787782062357398748}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
+  exit: {fileID: 0}
+--- !u!114 &8409842196766795778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4163a5fb61f88ab4ca3d5aab8c70e043, type: 3}
+  m_Name: Sequences Blueprint
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 584, y: -136}
+  ports:
+    keys:
+    - input
+    - exit
+    values:
+    - _fieldName: input
+      _node: {fileID: 8409842196766795778}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 8409842196766795778}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
+  exit: {fileID: 0}
+--- !u!114 &8412279145456281312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e4713c854737b47b05df9ce7120fc8, type: 3}
+  m_Name: Is Has Target Blueprint
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 856, y: -136}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: 8412279145456281312}
+      _typeQualifiedName: BehaviorTree.BehaviorTreeBlueprint, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}

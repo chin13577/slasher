@@ -56,7 +56,8 @@ namespace BehaviorTree
                         continue;
                     case NodeStates.Running:
                         m_nodeState = NodeStates.Running;
-                        // if currentNode is running so that, we continue run only this node until return success or fail. 
+                        // if currentNode is running so that,
+                        // we continue run only this node until return success or fail. 
                         currentIndex = i;
                         return NodeStates.Running;
                     default:
